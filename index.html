@@ -112,6 +112,7 @@ button { cursor: pointer; }
 .ml-s { display: none; }
 .theme-btn { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; padding: 0; background: var(--surface); border: 1px solid var(--line); color: var(--accent); }
 .theme-btn:hover, .theme-btn[aria-expanded="true"] { background: var(--accent-bg); }
+[hidden] { display: none !important; }
 .theme-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(320px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: 0 12px 32px rgba(10, 20, 30, 0.18); display: flex; flex-direction: column; gap: 10px; }
 .theme-panel .seg { margin-bottom: 6px; grid-template-columns: repeat(3, 1fr); }
 .seg button:disabled { opacity: 0.4; cursor: default; }
