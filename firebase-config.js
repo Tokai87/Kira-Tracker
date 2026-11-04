@@ -1,9 +1,9 @@
-// Paste your Firebase web app config here (see SETUP.md). Until then Kira works in "this phone only" mode.
+// Firebase web app config for Kira (these values are public by design; Firestore rules protect the data).
 window.KIRA_FIREBASE = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyBh4QLzs-Xt06qzY5yi235GEuuSFMnp8iI",
+  authDomain: "kira-c61cf.firebaseapp.com",
+  projectId: "kira-c61cf",
+  storageBucket: "kira-c61cf.firebasestorage.app",
+  messagingSenderId: "1055724155105",
+  appId: "1:1055724155105:web:ff76b2034a12ea9f1747a0"
 };
