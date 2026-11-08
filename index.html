@@ -223,10 +223,30 @@ button { cursor: pointer; }
 .xf-chip { background: var(--accent-bg); color: var(--accent); }
 
 /* Kira 2.0 */
-.switch { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; }
+.switch { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; }
 .switch button { border: 0; background: transparent; border-radius: 999px; padding: 10px; font-weight: 700; color: var(--muted); }
 .switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
 .stack { display: flex; flex-direction: column; gap: 20px; }
+.switch button { padding: 10px 4px; }
+@media (max-width: 420px) { .switch .pre { display: none; } }
+.coin { display: grid; place-items: center; border-radius: 50%; font-weight: 700; font-size: 11px; line-height: 1; color: #33404b; background: radial-gradient(circle at 30% 25%, #f7f9fb, #c3ccd4 62%, #9aa6b1); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55), 0 1px 2px rgba(10, 20, 30, 0.28); flex: none; justify-self: center; }
+.coin.s5 { width: 26px; height: 26px; font-size: 10px; }
+.coin.s10 { width: 30px; height: 30px; }
+.coin.s20 { width: 34px; height: 34px; font-size: 12px; }
+.coin.s50 { width: 40px; height: 40px; font-size: 13px; }
+.cpick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+.cbtn { display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); border-radius: 14px; padding: 10px 2px 8px; min-width: 0; font-weight: 600; font-size: 12px; color: var(--muted); }
+.cbtn .coin { margin-top: 2px; }
+.cbtn small { font-size: 11px; font-weight: 500; opacity: 0.85; }
+.cbtn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-bg); color: var(--fg); }
+.step { display: grid; grid-template-columns: 46px minmax(0, 1fr) 46px; gap: 8px; }
+.step input { text-align: center; font-size: 18px; font-weight: 700; }
+.stepb { border: 1px solid var(--line); background: var(--bg); border-radius: 10px; font-size: 22px; font-weight: 600; color: var(--fg); }
+.stepb:hover { background: var(--accent-bg); color: var(--accent); }
+.primary.alt { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.primary.alt:hover { background: var(--neg-bg); color: var(--neg); border-color: transparent; filter: none; }
+.jbar { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--accent-fg) 22%, transparent); overflow: hidden; }
+.jbar i { display: block; height: 100%; border-radius: 999px; background: var(--accent-fg); }
 .v2-sub { margin: 0; font-size: 14px; font-weight: 500; opacity: 0.92; }
 .hero-btn { align-self: flex-start; border: 0; border-radius: 999px; padding: 7px 14px; font-weight: 700; font-size: 13px; background: color-mix(in srgb, var(--accent-fg) 20%, transparent); color: inherit; }
 .alloc { display: flex; height: 16px; border-radius: 99px; overflow: hidden; background: var(--bg); gap: 2px; }
@@ -434,8 +454,9 @@ button { cursor: pointer; }
 
   <nav class="switch" role="group" aria-label="Choose view">
     <button type="button" id="viewKira" aria-pressed="true">Kira</button>
-    <button type="button" id="viewTwo" aria-pressed="false">Kira 2.0</button>
-    <button type="button" id="viewThree" aria-pressed="false">Kira 3.0</button>
+    <button type="button" id="viewTwo" aria-pressed="false" aria-label="Kira 2.0"><span class="pre">Kira </span>2.0</button>
+    <button type="button" id="viewThree" aria-pressed="false" aria-label="Kira 3.0"><span class="pre">Kira </span>3.0</button>
+    <button type="button" id="viewFour" aria-pressed="false" aria-label="Kira 4.0"><span class="pre">Kira </span>4.0</button>
   </nav>
 
   <div class="stack" id="viewK">
@@ -699,6 +720,48 @@ button { cursor: pointer; }
       <ul class="fx" id="v3Recent"></ul>
     </section>
   </div>
+
+  <div class="stack" id="viewV4" hidden>
+    <section class="hero" id="v4Hero" aria-label="Coin jar total"></section>
+
+    <form class="panel" id="coinForm" novalidate>
+      <div class="panel-head"><h2>Put in or take out</h2></div>
+      <div class="cpick" id="cPick" role="group" aria-label="Coin value"></div>
+      <div class="field">
+        <label for="cCount">How many coins</label>
+        <div class="step">
+          <button type="button" class="stepb" id="cMinus" aria-label="One less">&minus;</button>
+          <input id="cCount" inputmode="numeric" autocomplete="off" value="1">
+          <button type="button" class="stepb" id="cPlus" aria-label="One more">+</button>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="cDate">Date</label><input id="cDate" type="date"></div>
+        <div class="field"><label for="cNote">Note</label><input id="cNote" maxlength="40" autocomplete="off" placeholder="Optional"></div>
+      </div>
+      <p class="sub num" id="cPreview" style="min-height:18px;margin:0 0 10px"></p>
+      <p class="err" id="cErr" role="alert"></p>
+      <div class="row2">
+        <button class="primary" type="submit" id="cPut">Put in jar</button>
+        <button class="primary alt" type="button" id="cTake">Take out</button>
+      </div>
+    </form>
+
+    <div class="v2grid">
+      <section class="panel" aria-label="In your jar">
+        <div class="panel-head"><h2>In your jar</h2></div>
+        <ul class="al" id="cList"></ul>
+        <form class="inline-form" id="coinGoalForm" novalidate>
+          <div class="field"><label for="cGoal">Jar goal (RM)</label><input id="cGoal" inputmode="decimal" autocomplete="off" placeholder="No goal"></div>
+          <button class="primary" type="submit">Save</button>
+        </form>
+      </section>
+      <section class="panel" aria-label="Jar history">
+        <div class="panel-head"><h2>History</h2></div>
+        <ul class="fx" id="cHist"></ul>
+      </section>
+    </div>
+  </div>
 </main>
 <aside class="help" aria-label="How to use Kira">
   <details>
@@ -722,9 +785,15 @@ button { cursor: pointer; }
         <li>After that, every expense or income you add updates the total balance. Choose which account it comes from.</li>
         <li>Moved money between accounts? Use Transfer. If a number looks off, tap Fix balance and type the real amount.</li>
       </ul>
+      <h3>Kira 4.0 &mdash; coin jar</h3>
+      <ul>
+        <li>For the coins you keep in a jar or tabung. Pick a coin (5, 10, 20 or 50 sen), set how many, and tap Put in jar.</li>
+        <li>Taking coins out? Choose the coin and tap Take out. Kira shows the total, how many coins, and a goal if you set one.</li>
+        <li>This is its own tally. It does not change Kira, 2.0 or 3.0.</li>
+      </ul>
       <h3>Good to know</h3>
       <ul>
-        <li>Switch between Kira, 2.0 and 3.0 any time with the switch at the top.</li>
+        <li>Switch between Kira, 2.0, 3.0 and 4.0 any time with the switch at the top.</li>
         <li>Your data is private to your account. Export a CSV backup from time to time.</li>
         <li>Log in with Google to keep your data safe and see it on other phones. Without logging in, data stays on this phone only.</li>
       </ul>
@@ -781,7 +850,8 @@ button { cursor: pointer; }
   var now = new Date();
   var today = ymd(now);
   var thisMonth = ym(now);
-  var KINDS = ['tx', 'budgets', 'goals', 'rec', 'acct', 'xfer'];
+  var KINDS = ['tx', 'budgets', 'goals', 'rec', 'acct', 'xfer', 'coin'];
+  var COINS = [5, 10, 20, 50];
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   function shiftMonth(m, delta) { var p = m.split('-'); return ym(new Date(+p[0], +p[1] - 1 + delta, 1)); }
@@ -841,7 +911,7 @@ button { cursor: pointer; }
   }
 
   // ---------- state ----------
-  var D = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), settings: {} };
+  var D = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), settings: {} };
   var S = D;
   var ui = { month: thisMonth, type: 'expense', filter: 'all', q: '', armed: null, editId: null, editBudgets: false,
              loading: true, ready: false, demo: false, cloud: false, slow: false, storageOk: true, msg: '', batch: false, booted: false,
@@ -859,7 +929,7 @@ button { cursor: pointer; }
 
   // ---------- local storage ----------
   function readLocal() {
-    var out = { tx: [], budgets: [], goals: [], rec: [], acct: [], xfer: [], settings: {}, found: false };
+    var out = { tx: [], budgets: [], goals: [], rec: [], acct: [], xfer: [], coin: [], settings: {}, found: false };
     try {
       var v2 = localStorage.getItem('kira.v2');
       if (v2) {
@@ -920,7 +990,7 @@ button { cursor: pointer; }
   // ---------- example data ----------
   function buildDemo() {
     var prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    var m = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), settings: { income: 480000, save: 50000, low: 30000 } };
+    var m = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), settings: { income: 480000, save: 50000, low: 30000, coinGoal: 5000 } };
     var n = 0;
     var add = function (base, day, type, cat, note, rm) {
       var d = new Date(base.getFullYear(), base.getMonth(), day);
@@ -959,6 +1029,10 @@ button { cursor: pointer; }
       else if (['Touch n Go reload', 'Petrol'].indexOf(t.note) !== -1) t.acct = 'exa2';
     });
     m.xfer.set('exx1', { id: 'exx1', from: 'exa1', to: 'cash', amt: 60000, date: ymd(new Date(prev.getFullYear(), prev.getMonth(), 10)), note: 'ATM withdrawal', ex: true });
+    [[3, 10, 9], [3, 20, 6], [3, 50, 4], [3, 5, 9], [9, 10, 8], [9, 20, 6], [14, 50, 5], [20, 10, 7], [20, 20, 6], [26, 50, 3]].forEach(function (c, i) {
+      var cd = new Date(prev.getFullYear(), prev.getMonth(), c[0]);
+      m.coin.set('exc' + i, { id: 'exc' + i, d: c[1], n: c[2], date: ymd(cd), note: i === 0 ? 'Start of the jar' : '', t: cd.getTime(), ex: true });
+    });
     return m;
   }
   var DEMO = buildDemo();
@@ -989,9 +1063,9 @@ button { cursor: pointer; }
   async function migrate() {
     if (D.settings.migrated) return;
     var l = readLocal();
-    var count = l.tx.length + l.budgets.length + l.goals.length + l.rec.length + l.acct.length + l.xfer.length;
+    var count = l.tx.length + l.budgets.length + l.goals.length + l.rec.length + l.acct.length + l.xfer.length + l.coin.length;
     if (!count) return;
-    var cloudEmpty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size === 0;
+    var cloudEmpty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size === 0;
     if (cloudEmpty) {
       ui.msg = 'Moving your saved entries to your account…';
       renderFoot();
@@ -1066,11 +1140,11 @@ button { cursor: pointer; }
 
   // ---------- rendering ----------
   function renderAll() {
-    var empty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size === 0 && !D.settings.income && !D.settings.save && !D.settings.low;
+    var empty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size === 0 && !D.settings.income && !D.settings.save && !D.settings.low;
     ui.demo = ui.ready && empty && !D.settings.dismissed;
     S = ui.demo ? DEMO : D;
     fillAccts();
-    renderTop(); renderTrend(); renderLedger(); renderBars(); renderGoals(); renderRecs(); renderFoot(); renderV2(); renderV3();
+    renderTop(); renderTrend(); renderLedger(); renderBars(); renderGoals(); renderRecs(); renderFoot(); renderV2(); renderV3(); renderV4();
   }
 
   function renderTop() {
@@ -1792,17 +1866,20 @@ button { cursor: pointer; }
     $('viewK').hidden = v !== 'kira';
     $('viewV2').hidden = v !== 'v2';
     $('viewV3').hidden = v !== 'v3';
+    $('viewV4').hidden = v !== 'v4';
+    $('viewFour').setAttribute('aria-pressed', String(v === 'v4'));
     $('viewKira').setAttribute('aria-pressed', String(v === 'kira'));
     $('viewTwo').setAttribute('aria-pressed', String(v === 'v2'));
     $('viewThree').setAttribute('aria-pressed', String(v === 'v3'));
-    $('brandName').textContent = v === 'v2' ? 'Kira 2.0' : v === 'v3' ? 'Kira 3.0' : 'Kira';
-    $('brandSub').textContent = v === 'v2' ? 'monthly plan · RM' : v === 'v3' ? 'my balance · RM' : 'finance tracker · RM';
+    $('brandName').textContent = v === 'v2' ? 'Kira 2.0' : v === 'v3' ? 'Kira 3.0' : v === 'v4' ? 'Kira 4.0' : 'Kira';
+    $('brandSub').textContent = v === 'v2' ? 'monthly plan · RM' : v === 'v3' ? 'my balance · RM' : v === 'v4' ? 'coin jar · RM' : 'finance tracker · RM';
     try { localStorage.setItem('kira.view', v); } catch (e) {}
     renderAll();
   }
   $('viewKira').onclick = function () { ui.view = 'kira'; applyView(); };
   $('viewTwo').onclick = function () { ui.view = 'v2'; applyView(); };
   $('viewThree').onclick = function () { ui.view = 'v3'; applyView(); };
+  $('viewFour').onclick = function () { ui.view = 'v4'; applyView(); };
 
   function openPlan() {
     $('planIncome').value = D.settings.income > 0 ? D.settings.income / 100 : '';
@@ -2189,11 +2266,115 @@ button { cursor: pointer; }
   });
   fillQ();
 
+  // ---------- Kira 4.0: coin jar ----------
+  ui.coinD = 50;
+  function coinTotals(src) {
+    var c = {};
+    COINS.forEach(function (d) { c[d] = 0; });
+    src.coin.forEach(function (e) { if (c[e.d] != null) c[e.d] += e.n; });
+    return c;
+  }
+  function coinBadge(d) { return '<span class="coin s' + d + '" aria-hidden="true">' + d + '</span>'; }
+  function coinCount() {
+    var n = parseInt(String($('cCount').value).replace(/[^0-9]/g, ''), 10);
+    return isFinite(n) ? n : NaN;
+  }
+  function coinPreview() {
+    var n = coinCount(), d = ui.coinD;
+    $('cPreview').textContent = n > 0 ? n + ' × ' + d + ' sen = ' + fmt(n * d) : '';
+  }
+  function renderV4() {
+    if (ui.view !== 'v4') return;
+    var tot = coinTotals(S), sen = 0, coins = 0;
+    COINS.forEach(function (d) { sen += tot[d] * d; coins += tot[d]; });
+    var goal = S.settings.coinGoal > 0 ? S.settings.coinGoal : 0;
+    var last = null;
+    S.coin.forEach(function (e) { if (!last || e.date > last.date || (e.date === last.date && (e.t || 0) > (last.t || 0))) last = e; });
+    var pct = goal ? Math.min(100, Math.round(sen / goal * 100)) : 0;
+    var sub = (ui.demo ? 'Example coins. Put in your own below. ' : '') + (coins ? coins + (coins === 1 ? ' coin' : ' coins') + ' in the jar.' : 'Your jar is empty. Put in your first coins below.');
+    $('v4Hero').innerHTML = '<div class="hero-top"><p class="eyebrow">Coin jar</p></div>' +
+      '<p class="balance num">' + fmt(sen) + '</p>' +
+      '<p class="v2-sub">' + sub + (goal ? (sen >= goal ? ' Goal reached!' : ' ' + fmt(goal - sen) + ' to go.') : '') + '</p>' +
+      (goal ? '<div class="jbar" role="img" aria-label="' + pct + '% of the goal"><i style="width:' + pct + '%"></i></div>' : '') +
+      '<div class="chips"><div class="chip"><span>Coins</span><b class="num">' + coins + '</b></div>' +
+      '<div class="chip"><span>Last added</span><b>' + (last ? (last.n > 0 ? '+' : '−') + Math.abs(last.n) + ' × ' + last.d + ' sen' : 'None yet') + '</b></div>' +
+      '<div class="chip"><span>Goal</span><b class="num">' + (goal ? pct + '%' : 'Not set') + '</b></div></div>';
+
+    $('cPick').innerHTML = COINS.map(function (d) {
+      return '<button type="button" class="cbtn" data-coin="' + d + '" aria-pressed="' + (ui.coinD === d) + '" aria-label="' + d + ' sen, ' + tot[d] + ' in the jar">' +
+        coinBadge(d) + d + ' sen<small>' + tot[d] + ' in jar</small></button>';
+    }).join('');
+    $('cList').innerHTML = COINS.map(function (d) {
+      var v = tot[d] * d;
+      return '<li>' + coinBadge(d) + '<div class="what"><b>' + d + ' sen</b><span>' + tot[d] + (tot[d] === 1 ? ' coin' : ' coins') + (sen ? ' · ' + Math.round(v / sen * 100) + '%' : '') + '</span></div>' +
+        '<div class="r"><div class="amt num">' + fmt(v) + '</div></div></li>';
+    }).join('');
+    if (document.activeElement !== $('cGoal')) $('cGoal').value = D.settings.coinGoal > 0 ? D.settings.coinGoal / 100 : '';
+
+    var items = Array.from(S.coin.values()).sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : (b.t || 0) - (a.t || 0); }).slice(0, 12);
+    $('cHist').innerHTML = items.length ? items.map(function (e) {
+      var armed = ui.armed === 'coin:' + e.id, put = e.n > 0;
+      return '<li>' + coinBadge(e.d) + '<div class="what"><b>' + (put ? '+' : '−') + Math.abs(e.n) + ' × ' + e.d + ' sen</b><span>' + esc(e.note ? e.note + ' · ' : '') + esc(dayLabel(e.date)) + '</span></div>' +
+        '<div class="amt num ' + (put ? 'income' : 'expense') + '">' + (put ? '+' : '−') + fmt(Math.abs(e.n) * e.d) + '</div>' +
+        (e.ex ? '<span></span>' : '<button type="button" class="del' + (armed ? ' armed' : '') + '" data-cdel="' + esc(e.id) + '" aria-label="' + (armed ? 'Confirm delete' : 'Delete entry') + '">' + (armed ? 'Delete?' : '✕') + '</button>') + '</li>';
+    }).join('') : '<li class="foot" style="margin:0;display:block">Nothing yet. Put coins in the jar and they show here.</li>';
+    coinPreview();
+  }
+  $('cPick').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-coin]');
+    if (!b) return;
+    ui.coinD = +b.getAttribute('data-coin');
+    $('cErr').textContent = '';
+    renderV4();
+  });
+  $('cMinus').onclick = function () { var n = coinCount(); $('cCount').value = Math.max(1, (isFinite(n) ? n : 1) - 1); coinPreview(); };
+  $('cPlus').onclick = function () { var n = coinCount(); $('cCount').value = Math.min(100000, (isFinite(n) ? n : 0) + 1); coinPreview(); };
+  $('cCount').addEventListener('input', coinPreview);
+  async function coinMove(sign) {
+    var n = coinCount(), d = ui.coinD;
+    if (!(n > 0)) { $('cErr').textContent = 'Enter how many coins, like 8.'; return; }
+    if (n > 100000) { $('cErr').textContent = 'That is too many coins for one entry.'; return; }
+    var have = coinTotals(D)[d];
+    if (sign < 0 && n > have) { $('cErr').textContent = have > 0 ? 'You only have ' + have + ' × ' + d + ' sen in the jar.' : 'There are no ' + d + ' sen coins in the jar.'; return; }
+    var before = 0, after;
+    var t0 = coinTotals(D); COINS.forEach(function (c) { before += t0[c] * c; });
+    after = before + sign * n * d;
+    var date = $('cDate').value || today;
+    if (date > today) date = today;
+    $('cErr').textContent = '';
+    await put('coin', { id: uid(), d: d, n: sign * n, date: date, note: $('cNote').value.trim(), t: Date.now() });
+    $('cCount').value = 1; $('cNote').value = '';
+    coinPreview();
+    var goal = D.settings.coinGoal > 0 ? D.settings.coinGoal : 0;
+    if (sign > 0 && goal && before < goal && after >= goal) { burst(); toast('Goal reached! The jar has ' + fmt(after) + '.'); }
+    else toast((sign > 0 ? 'Put ' : 'Took out ') + n + ' × ' + d + ' sen ' + (sign > 0 ? 'in the jar. ' : 'of the jar. ') + 'Jar now ' + fmt(after) + '.');
+  }
+  $('coinForm').addEventListener('submit', function (e) { e.preventDefault(); coinMove(1); });
+  $('cTake').onclick = function () { coinMove(-1); };
+  $('coinGoalForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var raw = $('cGoal').value.trim();
+    var v = raw === '' ? 0 : parseAmount(raw);
+    if (!isFinite(v) || v < 0) { toast('Enter the goal as a plain amount, like 100.'); return; }
+    await setSettings({ coinGoal: v });
+    toast(v ? 'Goal saved.' : 'Goal removed.');
+  });
+  $('viewV4').addEventListener('click', function (e) {
+    var cd = e.target.closest('[data-cdel]');
+    if (!cd) return;
+    e.stopPropagation();
+    var id = cd.getAttribute('data-cdel');
+    if (ui.armed === 'coin:' + id) { ui.armed = null; del('coin', id); toast('Entry deleted.'); }
+    else { ui.armed = 'coin:' + id; renderV4(); }
+  });
+  $('cDate').value = today;
+  $('cDate').max = today;
+
   // ---------- start ----------
   $('date').value = today;
   $('date').max = today;
   fillCategories();
-  try { var sv = localStorage.getItem('kira.view'); ui.view = sv === 'v2' || sv === 'v3' ? sv : 'kira'; ui.hide = localStorage.getItem('kira.hide') === '1'; } catch (e) { ui.view = 'kira'; }
+  try { var sv = localStorage.getItem('kira.view'); ui.view = sv === 'v2' || sv === 'v3' || sv === 'v4' ? sv : 'kira'; ui.hide = localStorage.getItem('kira.hide') === '1'; } catch (e) { ui.view = 'kira'; }
   applyView();
   boot();
 })();
