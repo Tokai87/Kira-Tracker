@@ -264,6 +264,65 @@ button { cursor: pointer; }
 .fx .amt { text-align: right; }
 .pill { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 11.5px; font-weight: 700; background: var(--accent-bg); color: var(--accent); }
 .pill.ok { background: var(--pos-bg); color: var(--pos); }
+.pill.late { background: var(--neg-bg); color: var(--neg); }
+.fx.chk li { grid-template-columns: 28px 40px minmax(0, 1fr) auto 32px; gap: 10px; }
+.tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); display: grid; place-items: center; padding: 0; color: transparent; transition: background 0.15s, border-color 0.15s; }
+.tick svg { width: 15px; height: 15px; }
+.tick:hover:not(:disabled) { border-color: var(--pos); }
+.tick[aria-checked="true"] { background: var(--pos); border-color: var(--pos); color: #fff; }
+.tick:disabled { opacity: 0.55; cursor: default; }
+.fx li.paid .what b { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--muted); }
+.fx li.paid .amt { color: var(--muted); }
+.sum { margin: 0; }
+.sum > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.sum > div:last-child { border-bottom: 0; padding-bottom: 0; font-size: 15.5px; }
+.sum dt { color: var(--muted); }
+.sum dd { margin: 0; font-weight: 700; text-align: right; }
+.sum dd small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
+.sum .neg { color: var(--neg); }
+.sec-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sec-head h2 { margin: 0; font-size: 19px; }
+.sec-head .hb { display: flex; gap: 8px; flex-wrap: wrap; }
+.flexgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .flexgrid { grid-template-columns: minmax(0, 1fr); } }
+.falerts { display: flex; flex-direction: column; gap: 8px; }
+.falert { border-radius: 14px; padding: 10px 14px; font-size: 13.5px; font-weight: 600; background: color-mix(in srgb, hsl(42 92% 46%) 16%, var(--surface)); border-left: 4px solid hsl(42 92% 46%); }
+.falert.r { background: var(--neg-bg); border-left-color: var(--neg); color: var(--neg); }
+.fc-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px; }
+.fc-head b { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fstats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0 0 14px; }
+.fstats div { min-width: 0; }
+.fstats dt { font-size: 12px; color: var(--muted); }
+.fstats dd { margin: 2px 0 0; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fbar { height: 10px; border-radius: 999px; background: var(--bg); overflow: hidden; }
+.fbar i { display: block; height: 100%; border-radius: 999px; transition: width 0.3s; }
+.fbar.g i { background: var(--pos); }
+.fbar.y i { background: hsl(42 92% 46%); }
+.fbar.r i { background: var(--neg); }
+.fover { margin: 8px 0 0; font-size: 13px; font-weight: 700; color: var(--neg); }
+.fc-act { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.fc-act .ghost { flex: 1 1 auto; }
+.fproj { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+.fproj.w { color: var(--neg); font-weight: 600; }
+.fab { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 14px 20px; font-weight: 700; font-size: 15px; background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(10, 20, 30, 0.3); }
+.fab[hidden], .qa-back[hidden] { display: none; }
+.fab span.plus { font-size: 22px; line-height: 1; margin-top: -2px; }
+body.has-fab main { padding-bottom: 96px; }
+.qa-back { position: fixed; inset: 0; z-index: 60; background: rgba(8, 14, 22, 0.55); display: flex; align-items: flex-start; justify-content: center; padding: 8vh 16px 16px; overflow: auto; }
+.qa { width: 100%; max-width: 460px; margin: 0; }
+.qcats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.qc { border: 1px solid var(--line); background: var(--bg); border-radius: 14px; padding: 8px 12px; font-weight: 600; font-size: 13.5px; color: var(--fg); text-align: left; }
+.qc small { display: block; font-size: 11.5px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.qc[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-bg); }
+#qaAmt { font-size: 22px; font-weight: 700; }
+.fh { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.fh li { display: grid; grid-template-columns: minmax(0, 1fr) auto 32px 32px; gap: 6px; align-items: center; }
+.del.edit:hover { background: var(--accent-bg); color: var(--accent); }
+.del svg { width: 16px; height: 16px; }
+.fempty { text-align: center; padding: 8px 0; }
+.fempty .chipbtns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; }
+.pbar { height: 8px; border-radius: 999px; background: var(--bg); overflow: hidden; margin: 0 0 14px; }
+.pbar i { display: block; height: 100%; border-radius: 999px; background: var(--pos); transition: width 0.3s; }
 .fx-total { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
 .v2-note { margin: 0 0 14px; font-size: 12.5px; color: var(--muted); }
 .plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
@@ -594,8 +653,6 @@ button { cursor: pointer; }
         <div class="field"><label for="planIncome">Monthly income (RM)</label><input id="planIncome" inputmode="decimal" autocomplete="off" placeholder="4800"></div>
         <div class="field"><label for="planSave">Save each month (RM)</label><input id="planSave" inputmode="decimal" autocomplete="off" placeholder="500"></div>
       </div>
-      <p class="v2-note">How much you plan to spend in each category each month. Fixed expenses are counted separately, so leave rent and bills out of these. Leave blank for no limit.</p>
-      <div class="plan-grid" id="planLimits"></div>
       <p class="err" id="planErr" role="alert"></p>
       <button class="primary" type="submit">Save plan</button>
       <button class="ghost wide" type="button" id="planCancel">Cancel</button>
@@ -621,15 +678,54 @@ button { cursor: pointer; }
           <button class="primary" type="submit">Add fixed expense</button>
         </form>
         <p class="fx-total num" id="fxTotal"></p>
+        <div class="pbar" id="fxBar" hidden role="img" aria-label="Share of fixed expenses paid"><i></i></div>
         <ul class="fx" id="fxList"></ul>
       </section>
 
-      <section class="panel" aria-label="Spending limits">
-        <div class="panel-head"><h2>Monthly spending limits</h2></div>
-        <p class="v2-note" id="limNote"></p>
-        <ul class="bars" id="limBars"></ul>
+      <section class="panel" aria-label="Monthly summary">
+        <div class="panel-head"><h2>Monthly summary</h2></div>
+        <dl class="sum" id="v2Sum"></dl>
       </section>
     </div>
+
+    <section class="stack" id="flexSec" aria-label="Flexible budget">
+      <div class="sec-head">
+        <h2>Flexible budget</h2>
+        <div class="hb">
+          <button type="button" class="ghost" id="feOpen">+ Add Expense</button>
+          <button type="button" class="ghost" id="fcOpen">+ Category</button>
+        </div>
+      </div>
+      <div class="falerts" id="flexAlerts"></div>
+      <p class="v2-note" id="flexDaily" style="margin:0"></p>
+
+      <form class="panel" id="flexForm" hidden novalidate>
+        <div class="panel-head"><h2 id="feTitle">Add expense</h2></div>
+        <div class="row2">
+          <div class="field"><label for="feAmt">Amount (RM)</label><input id="feAmt" inputmode="decimal" autocomplete="off" placeholder="0.00"></div>
+          <div class="field"><label for="feDate">Date</label><input id="feDate" type="date"></div>
+        </div>
+        <div class="field"><label for="feCat">Category</label><select id="feCat"></select></div>
+        <div class="field"><label for="feNote">Description</label><input id="feNote" maxlength="60" autocomplete="off" placeholder="Lunch, petrol, groceries"></div>
+        <p class="v2-note" id="feHint"></p>
+        <p class="err" id="feErr" role="alert"></p>
+        <button class="primary" type="submit" id="feSave">Save expense</button>
+        <button class="ghost wide" type="button" id="feCancel">Cancel</button>
+      </form>
+
+      <form class="panel" id="flexCatForm" hidden novalidate>
+        <div class="panel-head"><h2 id="fcTitle">New flexible category</h2></div>
+        <div class="field"><label for="fcName">Category name</label><input id="fcName" maxlength="30" autocomplete="off" placeholder="Makan, Minyak, Barang dapur"></div>
+        <div class="field"><label for="fcLimit">Monthly budget (RM)</label><input id="fcLimit" inputmode="decimal" autocomplete="off" placeholder="400"></div>
+        <p class="v2-note" id="fcHint"></p>
+        <p class="err" id="fcErr" role="alert"></p>
+        <button class="primary" type="submit">Save category</button>
+        <button class="ghost wide" type="button" id="fcCancel">Cancel</button>
+        <button class="ghost wide" type="button" id="fcRemove" hidden>Remove category</button>
+      </form>
+
+      <div class="flexgrid" id="flexGrid"></div>
+    </section>
   </div>
 
   <div class="stack" id="viewV3" hidden>
@@ -763,6 +859,17 @@ button { cursor: pointer; }
     </div>
   </div>
 </main>
+<button type="button" class="fab" id="qaFab" hidden aria-label="Quick add expense"><span class="plus" aria-hidden="true">+</span> Add expense</button>
+<div class="qa-back" id="qaBack" hidden>
+  <form class="panel qa" id="qaForm" novalidate role="dialog" aria-modal="true" aria-labelledby="qaTitle">
+    <div class="panel-head"><h2 id="qaTitle">Quick add</h2><button type="button" class="ghost" id="qaClose" aria-label="Close">✕</button></div>
+    <div class="field"><label for="qaAmt">Amount (RM)</label><input id="qaAmt" inputmode="decimal" autocomplete="off" placeholder="0.00"></div>
+    <div class="qcats" id="qaCats" role="group" aria-label="Category"></div>
+    <div class="field"><label for="qaNote">Description (optional)</label><input id="qaNote" maxlength="60" autocomplete="off" placeholder="Lunch, petrol, groceries"></div>
+    <p class="err" id="qaErr" role="alert"></p>
+    <button class="primary" type="submit">Save expense</button>
+  </form>
+</div>
 <aside class="help" aria-label="How to use Kira">
   <details>
     <summary>How to use Kira</summary>
@@ -777,6 +884,9 @@ button { cursor: pointer; }
       <h3>Kira 2.0 &mdash; monthly plan</h3>
       <ul>
         <li>Enter your monthly income, fixed expenses (rent, bills) and how much to save. Kira shows what is left to spend.</li>
+        <li>Fixed expenses are bills with a set amount. Flexible budgets are for spending that changes, like food and petrol: give each a monthly budget, then tap + Add Expense every time you spend. The bar turns yellow at 70% and red at 90%.</li>
+        <li>Each month has its own record. Switch month at the top to see past spending. Changing a budget only applies from that month onward.</li>
+        <li>Tick each fixed expense when you pay it. The budget left goes down as you tick, and goes back up if you untick.</li>
         <li>This is a plan only. It does not subtract what you spend in Kira.</li>
       </ul>
       <h3>Kira 3.0 &mdash; money in hand</h3>
@@ -850,7 +960,7 @@ button { cursor: pointer; }
   var now = new Date();
   var today = ymd(now);
   var thisMonth = ym(now);
-  var KINDS = ['tx', 'budgets', 'goals', 'rec', 'acct', 'xfer', 'coin'];
+  var KINDS = ['tx', 'budgets', 'goals', 'rec', 'acct', 'xfer', 'coin', 'paid', 'flex', 'fexp'];
   var COINS = [5, 10, 20, 50];
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -911,7 +1021,7 @@ button { cursor: pointer; }
   }
 
   // ---------- state ----------
-  var D = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), settings: {} };
+  var D = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), paid: new Map(), flex: new Map(), fexp: new Map(), settings: {} };
   var S = D;
   var ui = { month: thisMonth, type: 'expense', filter: 'all', q: '', armed: null, editId: null, editBudgets: false,
              loading: true, ready: false, demo: false, cloud: false, slow: false, storageOk: true, msg: '', batch: false, booted: false,
@@ -929,7 +1039,7 @@ button { cursor: pointer; }
 
   // ---------- local storage ----------
   function readLocal() {
-    var out = { tx: [], budgets: [], goals: [], rec: [], acct: [], xfer: [], coin: [], settings: {}, found: false };
+    var out = { tx: [], budgets: [], goals: [], rec: [], acct: [], xfer: [], coin: [], paid: [], flex: [], fexp: [], settings: {}, found: false };
     try {
       var v2 = localStorage.getItem('kira.v2');
       if (v2) {
@@ -990,7 +1100,7 @@ button { cursor: pointer; }
   // ---------- example data ----------
   function buildDemo() {
     var prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    var m = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), settings: { income: 480000, save: 50000, low: 30000, coinGoal: 5000 } };
+    var m = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), paid: new Map(), flex: new Map(), fexp: new Map(), settings: { income: 480000, save: 50000, low: 30000, coinGoal: 5000 } };
     var n = 0;
     var add = function (base, day, type, cat, note, rm) {
       var d = new Date(base.getFullYear(), base.getMonth(), day);
@@ -1033,6 +1143,25 @@ button { cursor: pointer; }
       var cd = new Date(prev.getFullYear(), prev.getMonth(), c[0]);
       m.coin.set('exc' + i, { id: 'exc' + i, d: c[1], n: c[2], date: ymd(cd), note: i === 0 ? 'Start of the jar' : '', t: cd.getTime(), ex: true });
     });
+    [['exr2', ym(prev)], ['exr2', thisMonth], ['exr3', ym(prev)]].forEach(function (p) {
+      var pid = p[0] + '_' + p[1];
+      m.paid.set(pid, { id: pid, rid: p[0], m: p[1], t: 0, ex: true });
+    });
+    var pm = ym(prev);
+    [['exf1', 'Makan', 40000], ['exf2', 'Minyak', 20000], ['exf3', 'Barang dapur', 30000], ['exf4', 'Hiburan', 10000]].forEach(function (c, i) {
+      m.flex.set(c[0], { id: c[0], name: c[1], start: pm, lim: [{ m: pm, v: c[2] }], ord: i, ex: true });
+    });
+    function dayOf(mm, dd) { var last = mm === thisMonth ? now.getDate() : 28; return mm + '-' + pad(Math.min(dd, last)); }
+    [['exf1', 1, 1000, 'Nasi lemak'], ['exf1', 2, 1500, 'Lunch'], ['exf1', 3, 2500, 'Dinner'], ['exf1', 5, 8000, 'Kenduri'], ['exf1', 7, 7000, 'Groceries for the week'],
+     ['exf2', 2, 5000, 'Petrol'], ['exf2', 6, 6000, 'Petrol'],
+     ['exf3', 1, 14000, 'Pasar'], ['exf3', 4, 9500, 'Supermarket'], ['exf3', 8, 7500, 'Pasar'],
+     ['exf4', 3, 3500, 'Cinema']].forEach(function (x, i) {
+      var dt = dayOf(thisMonth, x[1]);
+      m.fexp.set('exe' + i, { id: 'exe' + i, flex: x[0], amt: x[2], note: x[3], date: dt, t: i, ex: true });
+    });
+    [['exf1', 4, 12000, 'Makan'], ['exf1', 15, 18000, 'Makan'], ['exf2', 9, 7000, 'Petrol'], ['exf3', 12, 21000, 'Barang dapur']].forEach(function (x, i) {
+      m.fexp.set('exp' + i, { id: 'exp' + i, flex: x[0], amt: x[2], note: x[3], date: dayOf(pm, x[1]), t: i, ex: true });
+    });
     return m;
   }
   var DEMO = buildDemo();
@@ -1063,9 +1192,9 @@ button { cursor: pointer; }
   async function migrate() {
     if (D.settings.migrated) return;
     var l = readLocal();
-    var count = l.tx.length + l.budgets.length + l.goals.length + l.rec.length + l.acct.length + l.xfer.length + l.coin.length;
+    var count = l.tx.length + l.budgets.length + l.goals.length + l.rec.length + l.acct.length + l.xfer.length + l.coin.length + l.paid.length + l.flex.length + l.fexp.length;
     if (!count) return;
-    var cloudEmpty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size === 0;
+    var cloudEmpty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size + D.paid.size + D.flex.size + D.fexp.size === 0;
     if (cloudEmpty) {
       ui.msg = 'Moving your saved entries to your account…';
       renderFoot();
@@ -1140,11 +1269,11 @@ button { cursor: pointer; }
 
   // ---------- rendering ----------
   function renderAll() {
-    var empty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size === 0 && !D.settings.income && !D.settings.save && !D.settings.low;
+    var empty = D.tx.size + D.budgets.size + D.goals.size + D.rec.size + D.acct.size + D.xfer.size + D.coin.size + D.paid.size + D.flex.size + D.fexp.size === 0 && !D.settings.income && !D.settings.save && !D.settings.low;
     ui.demo = ui.ready && empty && !D.settings.dismissed;
     S = ui.demo ? DEMO : D;
     fillAccts();
-    renderTop(); renderTrend(); renderLedger(); renderBars(); renderGoals(); renderRecs(); renderFoot(); renderV2(); renderV3(); renderV4();
+    renderTop(); renderTrend(); renderLedger(); renderBars(); renderGoals(); renderRecs(); renderFoot(); renderV2(); renderV3(); renderV4(); syncFab();
   }
 
   function renderTop() {
@@ -1789,76 +1918,99 @@ button { cursor: pointer; }
     // Kira 2.0 uses only its own plan: income, fixed expenses, saving and limits.
     // Entries added in Kira or Kira 3.0 are never taken off these numbers.
     var paid = {};
-    S.tx.forEach(function (t) { if (t.rid && t.date.slice(0, 7) === m) paid[t.rid] = true; });
+    S.paid.forEach(function (e) { if (e.m === m) paid[e.rid] = true; });
     var inc = S.settings.income > 0 ? S.settings.income : 0;
     var save = S.settings.save > 0 ? S.settings.save : 0;
     var fixed = Array.from(S.rec.values()).filter(function (r) { return r.type === 'expense' && (!r.start || r.start <= m); })
       .sort(function (a, b) { return a.day - b.day; });
     var fixedTotal = fixed.reduce(function (a, r) { return a + r.amt; }, 0);
     var flexible = inc - fixedTotal - save;
+    var paidTotal = 0, paidN = 0;
+    fixed.forEach(function (r) { if (paid[r.id]) { paidTotal += r.amt; paidN++; } });
+    var toPay = fixedTotal - paidTotal;
+    var left = inc - save - paidTotal;
     var days = daysIn(m);
+
+    // flexible budget numbers for this month (own expense log, never mixed with Kira entries)
+    var frows = flexCats(S, m).map(function (c) { return { c: c, lim: flexLimit(c, m), sp: flexSpent(S, c.id, m) }; });
+    var fAlloc = 0, fSpent = 0;
+    frows.forEach(function (r) { fAlloc += r.lim; fSpent += r.sp; });
+    var fRemain = fAlloc - fSpent;
+    var avail = flexible; // original: income - all fixed - saving
+    var unassigned = inc - fixedTotal - save - fAlloc;
 
     // hero
     var hero = $('v2Hero');
     if (!inc) {
       hero.innerHTML = '<div class="hero-top"><p class="eyebrow">Monthly plan</p><p class="hero-month">' + esc(monthLabel(m)) + '</p></div>' +
         '<p class="balance">Set your plan</p>' +
-        '<p class="v2-sub">Add your monthly income and how much you want to save. Kira 2.0 then shows how much you have to spend each month.</p>' +
+        '<p class="v2-sub">Add your monthly income and how much you want to save. Kira 2.0 then shows how much you have left each month.</p>' +
         '<button type="button" class="hero-btn" data-act="edit">Set up plan</button>';
     } else {
-      var sub = flexible > 0 ? 'About ' + fmt(Math.floor(flexible / days)) + ' a day over ' + days + ' days'
-        : flexible < 0 ? 'Your fixed expenses and saving are ' + fmt(-flexible) + ' more than your income'
-        : 'Nothing is left after fixed expenses and saving';
-      hero.innerHTML = '<div class="hero-top"><p class="eyebrow">Monthly budget</p><p class="hero-month">' + esc(monthLabel(m)) + '</p></div>' +
-        '<p class="balance num">' + fmt(flexible) + '</p>' +
-        '<p class="v2-sub">' + esc(sub) + '</p>' +
-        '<p class="v2-sub">' + fmt(inc) + ' income − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(flexible) + ' to spend this month.</p>' +
-        '<div class="chips"><div class="chip"><span>Income plan</span><b class="num">' + fmtChip(inc) + '</b></div>' +
-        '<div class="chip"><span>Fixed</span><b class="num">' + fmtChip(fixedTotal) + '</b></div>' +
-        '<div class="chip"><span>Saving</span><b class="num">' + fmtChip(save) + '</b></div></div>' +
+      var sub1 = !fixed.length ? 'No fixed expenses yet. Add them below and tick each one when you pay it.'
+        : paidN + ' of ' + fixed.length + ' fixed expenses paid' + (toPay > 0 ? ', ' + fmt(toPay) + ' still to pay.' : '.');
+      var sub2 = frows.length ? 'Flexible budget: ' + fmt(fSpent) + ' spent of ' + fmt(fAlloc) + (fRemain >= 0 ? ', ' + fmt(fRemain) + ' left.' : ', ' + fmt(-fRemain) + ' over.')
+        : 'Add flexible budgets below to track daily spending.';
+      hero.innerHTML = '<div class="hero-top"><p class="eyebrow">Available balance</p><p class="hero-month">' + esc(monthLabel(m)) + '</p></div>' +
+        '<p class="balance num">' + fmt(avail) + '</p>' +
+        '<p class="v2-sub">' + esc(sub1) + '</p>' +
+        '<p class="v2-sub">' + esc(sub2) + '</p>' +
+        '<p class="v2-sub">' + fmt(inc) + ' income − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(avail) + ' to spend this month.</p>' +
+        '<div class="chips"><div class="chip"><span>Fixed to pay</span><b class="num">' + fmtChip(toPay) + '</b></div>' +
+        '<div class="chip"><span>Flexible left</span><b class="num">' + fmtChip(fRemain) + '</b></div>' +
+        '<div class="chip"><span>Savings</span><b class="num">' + fmtChip(save) + '</b></div></div>' +
         '<button type="button" class="hero-btn" data-act="edit">Edit plan</button>';
     }
 
-    // where income goes
+    // where income goes (plan)
     var al = $('v2Alloc');
     al.hidden = !inc;
     if (inc) {
-      var base = Math.max(inc, fixedTotal + save);
-      var rest = Math.max(0, inc - fixedTotal - save);
-      var parts = [['Fixed expenses', fixedTotal, 262], ['Saving', save, 152], ['To spend', rest, 212]];
+      var base = Math.max(inc, fixedTotal + save + fAlloc);
+      var parts = [['Fixed expenses', fixedTotal, 262], ['Saving', save, 152], ['Flexible budget', fAlloc, 212]];
       var bar = '', leg = '';
       parts.forEach(function (p) {
         if (p[1] > 0) bar += '<i style="--h:' + p[2] + ';width:' + (p[1] / base * 100).toFixed(2) + '%"></i>';
         leg += '<li><span class="swatch" style="--h:' + p[2] + '"></span><b>' + p[0] + '</b><span class="v num">' + fmt(p[1]) + '</span></li>';
       });
-      al.innerHTML = '<div class="panel-head"><h2>Where your income goes</h2></div><div class="alloc" role="img" aria-label="Income split">' + bar + '</div><ul class="alloc-legend">' + leg + '</ul>';
+      if (unassigned > 0) {
+        bar += '<i class="l" style="width:' + (unassigned / base * 100).toFixed(2) + '%"></i>';
+        leg += '<li><span class="swatch" style="background:var(--line)"></span><b>Not assigned</b><span class="v num">' + fmt(unassigned) + '</span></li>';
+      }
+      al.innerHTML = '<div class="panel-head"><h2>Where your income goes</h2></div><div class="alloc" role="img" aria-label="Income split">' + bar + '</div><ul class="alloc-legend">' + leg + '</ul>' +
+        '<p class="v2-note" style="margin:14px 0 0">' + (unassigned > 0 ? fmt(unassigned) + ' of your income is not assigned to anything yet.'
+          : unassigned < 0 ? 'Fixed expenses, saving and flexible budgets add up to ' + fmt(-unassigned) + ' more than your income.' : 'Every ringgit of your income is assigned.') + '</p>';
     }
 
+    // monthly summary
+    $('v2Sum').innerHTML =
+      '<div><dt>Monthly income</dt><dd class="num">' + fmt(inc) + '</dd></div>' +
+      '<div><dt>Total fixed expenses</dt><dd class="num">' + fmt(fixedTotal) + '<small>' + fmt(paidTotal) + ' paid</small></dd></div>' +
+      '<div><dt>Flexible budget allocated</dt><dd class="num">' + fmt(fAlloc) + '</dd></div>' +
+      '<div><dt>Flexible budget spent</dt><dd class="num">' + fmt(fSpent) + '</dd></div>' +
+      '<div><dt>Flexible budget remaining</dt><dd class="num' + (fRemain < 0 ? ' neg' : '') + '">' + fmt(fRemain) + '</dd></div>' +
+      '<div><dt>Savings</dt><dd class="num">' + fmt(save) + '</dd></div>' +
+      '<div><dt>Available balance</dt><dd class="num' + (avail < 0 ? ' neg' : '') + '">' + fmt(avail) + '</dd></div>';
+
     // fixed list
-    $('fxTotal').textContent = fixed.length ? fmt(fixedTotal) + ' a month in total' : '';
+    $('fxTotal').innerHTML = fixed.length ? esc(fmt(fixedTotal) + ' a month in total') + ' · <b>' + paidN + ' of ' + fixed.length + ' paid</b>' : '';
+    $('fxBar').hidden = !fixed.length;
+    $('fxBar').firstElementChild.style.width = (fixedTotal ? Math.round(paidTotal / fixedTotal * 100) : 0) + '%';
+    $('fxList').className = 'fx chk';
     $('fxList').innerHTML = fixed.length ? fixed.map(function (r) {
-      var done = r.ex ? (!isNow || r.day <= now.getDate()) : !!paid[r.id];
+      var done = !!paid[r.id];
+      var late = !done && isNow && r.day < now.getDate();
       var armed = ui.armed === 'fx:' + r.id;
-      return '<li>' + catChip(r.cat, 'expense', false) +
-        '<div class="what"><b>' + esc(r.note || r.cat) + '</b><span><span class="pill' + (done ? ' ok' : '') + '">' + (done ? 'Posted' : 'Due ' + ordinal(r.day)) + '</span> ' + esc(r.cat) + '</span></div>' +
+      return '<li' + (done ? ' class="paid"' : '') + '>' +
+        '<button type="button" class="tick" role="checkbox" aria-checked="' + done + '" data-ftick="' + esc(r.id) + '"' + (r.ex ? ' disabled' : '') + ' aria-label="' + esc((done ? 'Mark ' : 'Mark ') + (r.note || r.cat) + (done ? ' as not paid' : ' as paid')) + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>' +
+        catChip(r.cat, 'expense', false) +
+        '<div class="what"><b>' + esc(r.note || r.cat) + '</b><span><span class="pill' + (done ? ' ok' : late ? ' late' : '') + '">' + (done ? 'Paid' : late ? 'Overdue · ' + ordinal(r.day) : 'Pending · ' + ordinal(r.day)) + '</span> ' + esc(r.cat) + '</span></div>' +
         '<div class="amt num">' + fmt(r.amt) + '</div>' +
         (r.ex ? '<span></span>' : '<button type="button" class="del' + (armed ? ' armed' : '') + '" data-fdel="' + esc(r.id) + '" aria-label="' + (armed ? 'Confirm remove' : 'Remove fixed expense') + '">' + (armed ? 'Remove?' : '✕') + '</button>') + '</li>';
     }).join('') : '<li class="foot" style="margin:0;display:block">No fixed expenses yet. Add rent, bills and subscriptions so they are set aside first.</li>';
 
-    // monthly limits (plan only, no spending)
-    var lims = [], assigned = 0;
-    S.budgets.forEach(function (b) { if (b.limit > 0) { lims.push(b); assigned += b.limit; } });
-    lims.sort(function (x, y) { return y.limit - x.limit; });
-    $('limNote').textContent = !assigned ? 'No limits yet. Use Edit plan to give each category a monthly limit.'
-      : assigned > flexible && flexible > 0 ? 'Your limits add up to ' + fmt(assigned) + ', which is ' + fmt(assigned - flexible) + ' more than the ' + fmt(flexible) + ' you have to spend.'
-      : 'Limits add up to ' + fmt(assigned) + ' of your ' + fmt(Math.max(0, flexible)) + ' to spend' + (flexible > assigned ? ', so ' + fmt(flexible - assigned) + ' is not assigned yet.' : '.');
-    var scale = Math.max(flexible, assigned, 1);
-    $('limBars').innerHTML = lims.length ? lims.map(function (b) {
-      var h = catInfo(b.cat, 'expense')[0];
-      var share = flexible > 0 ? Math.round(b.limit / flexible * 100) + '% of budget' : '';
-      return '<li><div class="bar-head"><b class="bn">' + catChip(b.cat, 'expense', true) + esc(b.cat) + '</b><span class="num">' + fmt(b.limit) + (share ? ' · ' + share : '') + '</span></div>' +
-        '<div class="track"><div class="fill c' + (h === 0 ? ' o' : '') + '" style="--h:' + h + ';width:' + (b.limit / scale * 100).toFixed(1) + '%"></div></div></li>';
-    }).join('') : '<li class="foot" style="margin:0">No limits set for ' + esc(monthLabel(m)) + '.</li>';
+    renderFlex(m, frows);
   }
 
   function applyView() {
@@ -1881,13 +2033,275 @@ button { cursor: pointer; }
   $('viewThree').onclick = function () { ui.view = 'v3'; applyView(); };
   $('viewFour').onclick = function () { ui.view = 'v4'; applyView(); };
 
+  // ---------- Kira 2.0: flexible budget ----------
+  ui.fhist = {};
+  function flexCats(src, m) {
+    return Array.from(src.flex.values()).filter(function (c) { return c.start <= m && (!c.end || m <= c.end); })
+      .sort(function (a, b) { return (a.ord || 0) - (b.ord || 0); });
+  }
+  function flexLimit(c, m) { var v = 0; (c.lim || []).forEach(function (p) { if (p.m <= m) v = p.v; }); return v; }
+  function flexSpent(src, id, m) {
+    var t = 0;
+    src.fexp.forEach(function (e) { if (e.flex === id && e.date.slice(0, 7) === m) t += e.amt; });
+    return t;
+  }
+  function flexTier(sp, lim) { return !lim ? 0 : sp > lim ? 4 : sp === lim ? 3 : sp * 100 >= lim * 90 ? 2 : sp * 100 >= lim * 70 ? 1 : 0; }
+  var PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>';
+  function flexPace(sp, lim, m) {
+    if (m !== thisMonth) return null;
+    var nd = new Date(), d = nd.getDate(), n = daysIn(m), left = lim - sp, dl = n - d + 1;
+    var o = { daysLeft: dl, perDay: left > 0 ? Math.floor(left / dl) : 0, run: null, proj: null };
+    if (d >= 3 && sp > 0) {
+      var pace = sp / d;
+      o.proj = Math.round(pace * n);
+      if (sp < lim && o.proj > lim) { var rd = Math.ceil(lim / pace); if (rd <= n) o.run = rd; }
+    }
+    return o;
+  }
+  function runDay(m, d) { return d + ' ' + new Date(m + '-01T00:00:00').toLocaleString('en-GB', { month: 'short' }); }
+  function feHistHTML(c, m) {
+    var items = Array.from(S.fexp.values()).filter(function (e) { return e.flex === c.id && e.date.slice(0, 7) === m; })
+      .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : (b.t || 0) - (a.t || 0); });
+    if (!items.length) return '<p class="foot" style="margin:12px 0 0">No expenses in ' + esc(monthLabel(m)) + ' yet.</p>';
+    var tot = {}, html = '', last = '';
+    items.forEach(function (e) { tot[e.date] = (tot[e.date] || 0) + e.amt; });
+    items.forEach(function (e) {
+      if (e.date !== last) {
+        if (last) html += '</ul>';
+        html += '<p class="day"><span>' + esc(dayLabel(e.date)) + '</span><span class="dt"><i>Spent</i> ' + esc(fmt(tot[e.date])) + '</span></p><ul class="fh">';
+        last = e.date;
+      }
+      var armed = ui.armed === 'fe:' + e.id;
+      html += '<li><div class="what"><b>' + esc(e.note || 'Expense') + '</b></div><div class="amt num">' + fmt(e.amt) + '</div>' +
+        (e.ex ? '<span></span><span></span>' :
+          '<button type="button" class="del edit" data-feedit="' + esc(e.id) + '" aria-label="Edit expense">' + PEN + '</button>' +
+          '<button type="button" class="del' + (armed ? ' armed' : '') + '" data-fedel="' + esc(e.id) + '" aria-label="' + (armed ? 'Confirm delete' : 'Delete expense') + '">' + (armed ? 'Delete?' : '✕') + '</button>') + '</li>';
+    });
+    return html + '</ul>';
+  }
+  function renderFlex(m, rows) {
+    if (ui.feMonth && ui.feMonth !== m) { $('flexForm').hidden = true; $('flexCatForm').hidden = true; ui.feMonth = null; }
+    var al = rows.filter(function (r) { return r.lim > 0 && flexTier(r.sp, r.lim) > 0; })
+      .sort(function (a, b) { return b.sp / b.lim - a.sp / a.lim; });
+    var alertsHTML = al.map(function (r) {
+      var t = flexTier(r.sp, r.lim), pc = Math.floor(r.sp * 100 / r.lim), left = r.lim - r.sp;
+      var msg = t === 4 ? r.c.name + ' is over budget by ' + fmt(r.sp - r.lim) + '.'
+        : t === 3 ? r.c.name + ' budget is used up.'
+        : r.c.name + ' is at ' + pc + '% of its budget. ' + fmt(left) + ' left.';
+      return '<div class="falert' + (t >= 2 ? ' r' : '') + '" role="status">' + esc(msg) + '</div>';
+    }).join('');
+    rows.forEach(function (r) {
+      var pc = flexPace(r.sp, r.lim, m);
+      if (pc && pc.run && flexTier(r.sp, r.lim) === 0) alertsHTML += '<div class="falert" role="status">' + esc(r.c.name + ' may run out around ' + runDay(m, pc.run) + ' at this pace.') + '</div>';
+    });
+    $('flexAlerts').innerHTML = alertsHTML;
+    var tl = 0, ts = 0; rows.forEach(function (r) { tl += r.lim; ts += r.sp; });
+    var tp = flexPace(ts, tl, m);
+    $('flexDaily').textContent = tp && tl - ts > 0 ? 'Across your flexible budgets you can spend about ' + fmt(tp.perDay) + ' a day for the ' + tp.daysLeft + (tp.daysLeft === 1 ? ' day' : ' days') + ' left this month.' : '';
+    if (!rows.length) {
+      var hasOld = false;
+      S.budgets.forEach(function (b) { if (b.limit > 0) hasOld = true; });
+      $('flexGrid').innerHTML = '<section class="panel fempty" style="grid-column:1/-1"><div class="panel-head"><h2>No flexible budgets yet</h2></div>' +
+        '<p class="v2-note">Make a category for spending that changes, like food or petrol. Give it a monthly budget, then record each expense and watch the balance.</p>' +
+        '<div class="chipbtns">' + ['Makan', 'Minyak', 'Barang dapur', 'Belanja harian', 'Hiburan'].map(function (n) { return '<button type="button" class="ghost" data-fcsug="' + esc(n) + '">' + esc(n) + '</button>'; }).join('') + '</div>' +
+        (hasOld ? '<button type="button" class="ghost" data-fcimport="1">Use my existing category limits</button>' : '') + '</section>';
+      return;
+    }
+    $('flexGrid').innerHTML = rows.map(function (r) {
+      var c = r.c, lim = r.lim, sp = r.sp, left = lim - sp;
+      var pc = lim ? sp * 100 / lim : 0, tone = pc >= 90 ? 'r' : pc >= 70 ? 'y' : 'g';
+      var open = !!ui.fhist[c.id];
+      var n = 0; S.fexp.forEach(function (e) { if (e.flex === c.id && e.date.slice(0, 7) === m) n++; });
+      return '<article class="panel fcard"><div class="fc-head"><b>' + esc(c.name) + '</b>' +
+        (c.ex ? '' : '<button type="button" class="del edit" data-fcedit="' + esc(c.id) + '" aria-label="Edit ' + esc(c.name) + '">' + PEN + '</button>') + '</div>' +
+        '<dl class="fstats"><div><dt>Monthly budget</dt><dd>' + fmt(lim) + '</dd></div><div><dt>Spent</dt><dd>' + fmt(sp) + '</dd></div>' +
+        '<div><dt>Remaining</dt><dd' + (left < 0 ? ' style="color:var(--neg)"' : '') + '>' + fmt(left) + '</dd></div><div><dt>Usage</dt><dd>' + Math.round(pc) + '%</dd></div></dl>' +
+        '<div class="fbar ' + tone + '" role="img" aria-label="' + Math.round(pc) + '% of budget used"><i style="width:' + Math.min(100, pc).toFixed(1) + '%"></i></div>' +
+        (left < 0 ? '<p class="fover">Over budget by ' + esc(fmt(-left)) + '</p>' : '') +
+        (function () {
+          var pc = flexPace(sp, lim, m);
+          if (!pc || left <= 0) return '';
+          return '<p class="fproj">About ' + esc(fmt(pc.perDay)) + ' a day for the ' + pc.daysLeft + (pc.daysLeft === 1 ? ' day' : ' days') + ' left.</p>' +
+            (pc.run ? '<p class="fproj w">At this pace it runs out around ' + esc(runDay(m, pc.run)) + '.</p>'
+              : pc.proj !== null ? '<p class="fproj">On track: about ' + esc(fmt(pc.proj)) + ' by month end.</p>' : '');
+        })() +
+        '<div class="fc-act"><button type="button" class="ghost" data-feadd="' + esc(c.id) + '">+ Add Expense</button>' +
+        '<button type="button" class="ghost" data-fhist="' + esc(c.id) + '" aria-expanded="' + open + '">' + (open ? 'Hide history' : 'History (' + n + ')') + '</button></div>' +
+        (open ? feHistHTML(c, m) : '') + '</article>';
+    }).join('');
+  }
+  function feBounds() {
+    var m = ui.month, min = m + '-01', max = m === thisMonth ? today : m + '-' + pad(daysIn(m));
+    return { min: min, max: max };
+  }
+  function openExp(catId, expId) {
+    if (ui.demo) { toast('These are examples. Add your own flexible category first.'); openCat(null); return; }
+    var cats = flexCats(D, ui.month);
+    if (!cats.length) { toast('Add a flexible category first.'); openCat(null); return; }
+    if (ui.month > thisMonth) { toast('You cannot add expenses to a future month.'); return; }
+    var e = expId ? D.fexp.get(expId) : null, bd = feBounds();
+    ui.feEdit = e ? e.id : null; ui.feMonth = ui.month;
+    $('feTitle').textContent = e ? 'Edit expense' : 'Add expense';
+    $('feSave').textContent = e ? 'Save changes' : 'Save expense';
+    $('feCat').innerHTML = cats.map(function (c) { return '<option value="' + esc(c.id) + '">' + esc(c.name) + '</option>'; }).join('');
+    $('feCat').value = e ? e.flex : (catId && cats.some(function (c) { return c.id === catId; }) ? catId : cats[0].id);
+    $('feAmt').value = e ? e.amt / 100 : '';
+    $('feNote').value = e ? e.note || '' : '';
+    $('feDate').min = bd.min; $('feDate').max = bd.max;
+    $('feDate').value = e ? e.date : bd.max;
+    $('feHint').textContent = 'Dates are limited to ' + monthLabel(ui.month) + '. Switch month at the top to record another month.';
+    $('feErr').textContent = '';
+    $('flexCatForm').hidden = true;
+    $('flexForm').hidden = false;
+    try { $('flexForm').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (er) {}
+    $('feAmt').focus();
+  }
+  function openCat(id, sugg) {
+    var c = id ? D.flex.get(id) : null;
+    ui.fcEdit = c ? c.id : null; ui.feMonth = ui.month; ui.fcArm = false;
+    $('fcTitle').textContent = c ? 'Edit ' + c.name : 'New flexible category';
+    $('fcName').value = c ? c.name : (sugg || '');
+    $('fcLimit').value = c ? flexLimit(c, ui.month) / 100 : '';
+    $('fcHint').textContent = c ? 'A new budget applies from ' + monthLabel(ui.month) + ' onward. Earlier months keep their own budget.' : 'The budget starts in ' + monthLabel(ui.month) + ' and repeats every month until you change it.';
+    $('fcErr').textContent = '';
+    $('fcRemove').hidden = !c; $('fcRemove').textContent = 'Remove category';
+    $('flexForm').hidden = true;
+    $('flexCatForm').hidden = false;
+    try { $('flexCatForm').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (er) {}
+    (sugg ? $('fcLimit') : $('fcName')).focus();
+  }
+  $('feOpen').onclick = function () { openExp(null, null); };
+  $('fcOpen').onclick = function () { openCat(null); };
+  $('feCancel').onclick = function () { $('flexForm').hidden = true; };
+  $('fcCancel').onclick = function () { $('flexCatForm').hidden = true; };
+  $('flexForm').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var err = $('feErr'), amt = parseAmount($('feAmt').value), cat = $('feCat').value, date = $('feDate').value, bd = feBounds();
+    if (!isFinite(amt) || amt <= 0) { err.textContent = 'Enter an amount greater than 0.'; $('feAmt').focus(); return; }
+    if (!D.flex.has(cat)) { err.textContent = 'Pick a category.'; return; }
+    if (!date || date < bd.min || date > bd.max) { err.textContent = 'Pick a date in ' + monthLabel(ui.month) + (ui.month === thisMonth ? ', up to today' : '') + '.'; $('feDate').focus(); return; }
+    err.textContent = '';
+    var old = ui.feEdit ? D.fexp.get(ui.feEdit) : null;
+    await fexpSave(cat, amt, $('feNote').value.trim(), date, old);
+    $('flexForm').hidden = true;
+  });
+  async function fexpSave(cat, amt, note, date, old) {
+    var c = D.flex.get(cat), lim = flexLimit(c, ui.month);
+    var before = flexSpent(D, cat, ui.month) - (old && old.flex === cat && old.date.slice(0, 7) === ui.month ? old.amt : 0);
+    var after = before + amt;
+    await put('fexp', { id: old ? old.id : uid(), flex: cat, amt: amt, note: note, date: date, t: old ? old.t : Date.now() });
+    var t0 = flexTier(before, lim), t1 = flexTier(after, lim), left = lim - after;
+    if (t1 > t0 && t1 >= 1) {
+      toast(t1 === 4 ? c.name + ' is over budget by ' + fmt(-left) + '.' : t1 === 3 ? c.name + ' budget is used up.'
+        : c.name + ' is at ' + Math.floor(after * 100 / lim) + '% of its budget. ' + fmt(left) + ' left.');
+    } else toast((old ? 'Saved. ' : 'Added ' + fmt(amt) + ' to ' + c.name + '. ') + (left >= 0 ? fmt(left) + ' left.' : fmt(-left) + ' over budget.'));
+  }
+
+  // quick add (floating button)
+  function syncFab() {
+    var show = ui.view === 'v2' && ui.month === thisMonth;
+    $('qaFab').hidden = !show;
+    document.body.classList.toggle('has-fab', show);
+    if (!show) $('qaBack').hidden = true;
+  }
+  function renderQaCats(cats) {
+    $('qaCats').innerHTML = cats.map(function (c) {
+      var left = flexLimit(c, ui.month) - flexSpent(D, c.id, ui.month);
+      return '<button type="button" class="qc" data-qc="' + esc(c.id) + '" aria-pressed="' + (c.id === ui.qaCat) + '">' + esc(c.name) + '<small>' + (left >= 0 ? esc(fmt(left)) + ' left' : esc(fmt(-left)) + ' over') + '</small></button>';
+    }).join('');
+  }
+  function openQuick() {
+    var cats = flexCats(D, ui.month);
+    if (ui.demo || !cats.length) { openExp(null, null); return; }
+    if (!cats.some(function (c) { return c.id === ui.qaCat; })) ui.qaCat = cats[0].id;
+    renderQaCats(cats);
+    $('qaAmt').value = ''; $('qaNote').value = ''; $('qaErr').textContent = '';
+    $('qaBack').hidden = false;
+    $('qaAmt').focus();
+  }
+  function closeQuick() { $('qaBack').hidden = true; }
+  $('qaFab').onclick = openQuick;
+  $('qaClose').onclick = closeQuick;
+  $('qaBack').addEventListener('click', function (ev) { if (ev.target === $('qaBack')) closeQuick(); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !$('qaBack').hidden) closeQuick(); });
+  $('qaCats').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-qc]');
+    if (!b) return;
+    ui.qaCat = b.getAttribute('data-qc');
+    renderQaCats(flexCats(D, ui.month));
+    $('qaAmt').focus();
+  });
+  $('qaForm').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var amt = parseAmount($('qaAmt').value);
+    if (!isFinite(amt) || amt <= 0) { $('qaErr').textContent = 'Enter an amount greater than 0.'; $('qaAmt').focus(); return; }
+    if (!D.flex.has(ui.qaCat)) { $('qaErr').textContent = 'Pick a category.'; return; }
+    closeQuick();
+    await fexpSave(ui.qaCat, amt, $('qaNote').value.trim(), today, null);
+  });
+  $('flexCatForm').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var err = $('fcErr'), name = $('fcName').value.trim().replace(/\s+/g, ' '), v = parseAmount($('fcLimit').value);
+    if (!name) { err.textContent = 'Give the category a name.'; $('fcName').focus(); return; }
+    if (!isFinite(v) || v <= 0) { err.textContent = 'Enter a monthly budget greater than 0.'; $('fcLimit').focus(); return; }
+    var dup = flexCats(D, ui.month).some(function (c) { return c.id !== ui.fcEdit && c.name.toLowerCase() === name.toLowerCase(); });
+    if (dup) { err.textContent = 'You already have a category with that name.'; return; }
+    err.textContent = '';
+    var c = ui.fcEdit ? D.flex.get(ui.fcEdit) : null;
+    if (c) {
+      var lim = (c.lim || []).filter(function (p) { return p.m !== ui.month; });
+      lim.push({ m: ui.month, v: v });
+      lim.sort(function (a, b) { return a.m < b.m ? -1 : 1; });
+      await put('flex', Object.assign({}, c, { name: name, lim: lim }));
+      toast('Saved.');
+    } else {
+      await put('flex', { id: uid(), name: name, start: ui.month, lim: [{ m: ui.month, v: v }], ord: Date.now() });
+      toast(name + ' added with a budget of ' + fmt(v) + '.');
+    }
+    $('flexCatForm').hidden = true;
+  });
+  $('fcRemove').onclick = async function () {
+    var c = ui.fcEdit ? D.flex.get(ui.fcEdit) : null;
+    if (!c) return;
+    var n = 0; D.fexp.forEach(function (e) { if (e.flex === c.id && e.date.slice(0, 7) >= ui.month) n++; });
+    if (n) { $('fcErr').textContent = 'This category has ' + n + (n === 1 ? ' expense' : ' expenses') + ' from ' + monthLabel(ui.month) + ' onward. Delete them first, then remove the category.'; return; }
+    if (!ui.fcArm) { ui.fcArm = true; $('fcRemove').textContent = 'Tap again to remove'; return; }
+    if (c.start >= ui.month) await del('flex', c.id);
+    else await put('flex', Object.assign({}, c, { end: shiftMonth(ui.month, -1) }));
+    $('flexCatForm').hidden = true;
+    toast('Category removed. Earlier months are kept.');
+  };
+  $('flexGrid').addEventListener('click', async function (ev) {
+    var t;
+    if ((t = ev.target.closest('[data-feadd]'))) { ev.stopPropagation(); openExp(t.getAttribute('data-feadd'), null); return; }
+    if ((t = ev.target.closest('[data-fhist]'))) { ev.stopPropagation(); var k = t.getAttribute('data-fhist'); ui.fhist[k] = !ui.fhist[k]; renderV2(); return; }
+    if ((t = ev.target.closest('[data-fcedit]'))) { ev.stopPropagation(); openCat(t.getAttribute('data-fcedit')); return; }
+    if ((t = ev.target.closest('[data-feedit]'))) { ev.stopPropagation(); openExp(null, t.getAttribute('data-feedit')); return; }
+    if ((t = ev.target.closest('[data-fedel]'))) {
+      ev.stopPropagation();
+      var id = t.getAttribute('data-fedel');
+      if (ui.armed === 'fe:' + id) { ui.armed = null; del('fexp', id); toast('Expense deleted.'); }
+      else { ui.armed = 'fe:' + id; renderV2(); }
+      return;
+    }
+    if ((t = ev.target.closest('[data-fcsug]'))) { ev.stopPropagation(); openCat(null, t.getAttribute('data-fcsug')); return; }
+    if ((t = ev.target.closest('[data-fcimport]'))) {
+      ev.stopPropagation();
+      var made = 0;
+      ui.batch = true;
+      for (var cat of CATS.expense) {
+        var b = D.budgets.get(cat);
+        if (b && b.limit > 0) { await put('flex', { id: uid(), name: cat, start: ui.month, lim: [{ m: ui.month, v: b.limit }], ord: Date.now() + made }); made++; }
+      }
+      ui.batch = false;
+      renderAll();
+      toast(made + (made === 1 ? ' category' : ' categories') + ' created from your limits.');
+    }
+  });
+
   function openPlan() {
     $('planIncome').value = D.settings.income > 0 ? D.settings.income / 100 : '';
     $('planSave').value = D.settings.save > 0 ? D.settings.save / 100 : '';
-    $('planLimits').innerHTML = CATS.expense.map(function (c) {
-      var b = D.budgets.get(c);
-      return '<div class="field"><label for="pl_' + c + '">' + c + '</label><input id="pl_' + c + '" inputmode="decimal" autocomplete="off" placeholder="No limit" value="' + (b ? b.limit / 100 : '') + '"></div>';
-    }).join('');
     $('planErr').textContent = '';
     $('planForm').hidden = false;
     try { $('planForm').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (e) {}
@@ -1896,11 +2310,20 @@ button { cursor: pointer; }
   $('viewV2').addEventListener('click', function (e) {
     var a = e.target.closest('[data-act="edit"]');
     if (a) { openPlan(); return; }
+    var tk = e.target.closest('[data-ftick]');
+    if (tk) {
+      e.stopPropagation();
+      if (ui.demo) { toast('These are examples. Add your own fixed expense, then tick it when you pay.'); return; }
+      var rid = tk.getAttribute('data-ftick'), pid = rid + '_' + ui.month;
+      if (D.paid.has(pid)) { del('paid', pid); }
+      else { put('paid', { id: pid, rid: rid, m: ui.month, t: Date.now() }); }
+      return;
+    }
     var d = e.target.closest('[data-fdel]');
     if (d) {
       e.stopPropagation();
       var id = d.getAttribute('data-fdel');
-      if (ui.armed === 'fx:' + id) { ui.armed = null; del('rec', id); toast('Removed. Past entries are kept.'); }
+      if (ui.armed === 'fx:' + id) { ui.armed = null; del('rec', id); Array.from(D.paid.values()).forEach(function (p) { if (p.rid === id) del('paid', p.id); }); toast('Removed. Past entries are kept.'); }
       else { ui.armed = 'fx:' + id; renderV2(); }
     }
   });
@@ -1911,21 +2334,8 @@ button { cursor: pointer; }
     var rawI = $('planIncome').value.trim(), rawS = $('planSave').value.trim();
     var inc = rawI === '' ? 0 : parseAmount(rawI), sv = rawS === '' ? 0 : parseAmount(rawS);
     if (!isFinite(inc) || inc < 0 || !isFinite(sv) || sv < 0) { errEl.textContent = 'Enter income and saving as plain amounts, like 4800.'; return; }
-    var ops = [];
-    for (var i = 0; i < CATS.expense.length; i++) {
-      var c = CATS.expense[i], raw = $('pl_' + c).value.trim();
-      var v = raw === '' ? 0 : parseAmount(raw);
-      if (!isFinite(v) || v < 0) { errEl.textContent = 'The limit for ' + c + ' is not a valid amount.'; return; }
-      (function (c, v) {
-        if (v > 0) ops.push(function () { return put('budgets', { id: c, cat: c, limit: v }); });
-        else if (D.budgets.has(c)) ops.push(function () { return del('budgets', c); });
-      })(c, v);
-    }
     errEl.textContent = '';
-    ui.batch = true;
     await setSettings({ income: inc, save: sv });
-    for (var j = 0; j < ops.length; j++) await ops[j]();
-    ui.batch = false;
     $('planForm').hidden = true;
     renderAll();
     toast('Plan saved.');
