@@ -88,6 +88,7 @@
 :root[data-bg="sand"]     { --bg: #F4EEE3; --surface: #FFFBF4; --fg: #2B2218; --muted: #7B6C59; --line: #E6DCC8; --pos-bg: #E2F0DE; --neg-bg: #F8E3DA; }
 
 * { box-sizing: border-box; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 11%, transparent), transparent 380px); }
 body {
   background: var(--bg);
   color: var(--fg);
@@ -145,7 +146,7 @@ button { cursor: pointer; }
 .chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .chip { background: color-mix(in srgb, var(--accent-fg) 16%, transparent); border-radius: 14px; padding: 9px 11px; min-width: 0; }
 .chip span { display: block; font-size: 11.5px; font-weight: 600; opacity: 0.85; }
-.chip b { display: block; margin-top: 2px; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.chip b { display: block; margin-top: 2px; font-size: clamp(13px, 3.9vw, 15px); font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
 .health { display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 500; }
 .health-track { height: 6px; border-radius: 99px; background: color-mix(in srgb, var(--accent-fg) 22%, transparent); overflow: hidden; }
 .health-fill { height: 100%; border-radius: 99px; background: var(--accent-fg); transition: width 0.6s ease; }
@@ -154,7 +155,7 @@ button { cursor: pointer; }
 .dot.neg { background: var(--neg); }
 
 /* panels */
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; min-width: 0; box-shadow: 0 1px 2px rgba(20, 32, 43, 0.06); }
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
 .panel h2, .panel-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
 .legend { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); }
@@ -247,7 +248,13 @@ button { cursor: pointer; }
 .primary.alt:hover { background: var(--neg-bg); color: var(--neg); border-color: transparent; filter: none; }
 .jbar { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--accent-fg) 22%, transparent); overflow: hidden; }
 .jbar i { display: block; height: 100%; border-radius: 999px; background: var(--accent-fg); }
-.v2-sub { margin: 0; font-size: 14px; font-weight: 500; opacity: 0.92; }
+.v2-sub { margin: 0; font-size: 13.5px; font-weight: 500; opacity: 0.92; line-height: 1.4; }
+.hero details { font-size: 12.5px; opacity: 0.92; }
+.hero summary { cursor: pointer; font-weight: 600; list-style: none; padding: 2px 0; }
+.hero summary::-webkit-details-marker { display: none; }
+.hero summary::after { content: " ▾"; }
+.hero details[open] summary::after { content: " ▴"; }
+.hero details p { margin: 6px 0 0; line-height: 1.45; }
 .hero-btn { align-self: flex-start; border: 0; border-radius: 999px; padding: 7px 14px; font-weight: 700; font-size: 13px; background: color-mix(in srgb, var(--accent-fg) 20%, transparent); color: inherit; }
 .alloc { display: flex; height: 16px; border-radius: 99px; overflow: hidden; background: var(--bg); gap: 2px; }
 .alloc i { display: block; height: 100%; min-width: 0; background: hsl(var(--h) var(--cvS) var(--cvL)); }
@@ -304,10 +311,10 @@ button { cursor: pointer; }
 .fc-act .ghost { flex: 1 1 auto; }
 .fproj { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
 .fproj.w { color: var(--neg); font-weight: 600; }
-.fab { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 14px 20px; font-weight: 700; font-size: 15px; background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(10, 20, 30, 0.3); }
+.fab { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 10px 16px; font-weight: 700; font-size: 14px; background: var(--accent); color: #fff; box-shadow: 0 6px 18px rgba(10, 20, 30, 0.28); }
 .fab[hidden], .qa-back[hidden] { display: none; }
-.fab span.plus { font-size: 22px; line-height: 1; margin-top: -2px; }
-body.has-fab main { padding-bottom: 96px; }
+.fab span.plus { font-size: 20px; line-height: 1; margin-top: -2px; }
+body.has-fab main { padding-bottom: 120px; }
 .qa-back { position: fixed; inset: 0; z-index: 60; background: rgba(8, 14, 22, 0.55); display: flex; align-items: flex-start; justify-content: center; padding: 8vh 16px 16px; overflow: auto; }
 .qa { width: 100%; max-width: 460px; margin: 0; }
 .qcats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
@@ -320,6 +327,10 @@ body.has-fab main { padding-bottom: 96px; }
 .del.edit:hover { background: var(--accent-bg); color: var(--accent); }
 .del svg { width: 16px; height: 16px; }
 .fempty { text-align: center; padding: 8px 0; }
+#fcLink { display: flex; flex-wrap: wrap; gap: 6px; }
+#fcLink .ghost { width: auto; padding: 6px 12px; font-size: 13px; }
+#fcLink .ghost[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+#fcLink .ghost:disabled { opacity: 0.45; }
 .fempty .chipbtns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; }
 .pbar { height: 8px; border-radius: 999px; background: var(--bg); overflow: hidden; margin: 0 0 14px; }
 .pbar i { display: block; height: 100%; border-radius: 999px; background: var(--pos); transition: width 0.3s; }
@@ -391,6 +402,11 @@ body.has-fab main { padding-bottom: 96px; }
 .day:first-of-type { margin-top: 4px; }
 .day { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .day .dt { font-weight: 600; letter-spacing: 0; text-transform: none; font-size: 12.5px; color: var(--text); font-variant-numeric: tabular-nums; }
+.dayh { cursor: pointer; user-select: none; margin: 10px 0 6px; padding: 8px 4px; border-radius: 10px; }
+.dayh:hover { background: color-mix(in srgb, var(--fg) 5%, transparent); }
+.dayh .car { display: inline-block; width: 12px; color: var(--accent); }
+.dayh em { font-style: normal; font-weight: 600; font-size: 11px; background: var(--line); color: var(--muted); border-radius: 99px; padding: 1px 7px; margin-left: 4px; letter-spacing: 0; }
+.list[hidden] { display: none; }
 .day .dt i { font-style: normal; color: var(--muted); font-weight: 500; }
 .dstats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0 0 6px; }
 .dstats div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px 12px; min-width: 0; }
@@ -564,6 +580,12 @@ body.has-fab main { padding-bottom: 96px; }
       <div id="listHost"></div>
       <p class="foot">Tap a transaction to edit it. Import reads CSV with columns date, type, category, note, amount.</p>
       <p class="foot" id="foot"></p>
+      <div class="ledger-tools" style="margin-top:10px">
+        <button type="button" class="ghost" id="bkBtn">Back up everything</button>
+        <button type="button" class="ghost" id="rsBtn">Restore backup</button>
+        <input type="file" id="bkFile" accept=".json,application/json" hidden>
+      </div>
+      <p class="foot">A backup file holds everything: Kira, 2.0, 3.0, the coin jar, checklists and your plan settings. Restoring adds to what you have and replaces entries with the same id. It never deletes anything.</p>
     </section>
 
     <div class="area-form">
@@ -647,6 +669,8 @@ body.has-fab main { padding-bottom: 96px; }
   <div class="stack" id="viewV2" hidden>
     <section class="hero" id="v2Hero" aria-label="Monthly plan"></section>
 
+    <div class="falerts" id="billAlerts"></div>
+
     <form class="panel" id="planForm" hidden novalidate>
       <div class="panel-head"><h2>Edit monthly plan</h2></div>
       <div class="plan-grid">
@@ -724,6 +748,8 @@ body.has-fab main { padding-bottom: 96px; }
         <div class="panel-head"><h2 id="fcTitle">New flexible category</h2></div>
         <div class="field"><label for="fcName">Category name</label><input id="fcName" maxlength="30" autocomplete="off" placeholder="Makan, Minyak, Barang dapur"></div>
         <div class="field"><label for="fcLimit">Monthly budget (RM)</label><input id="fcLimit" inputmode="decimal" autocomplete="off" placeholder="400"></div>
+        <div class="field"><label>Also count my Kira entries from</label><div class="chipbtns" id="fcLink"></div></div>
+        <p class="v2-note">Optional. Expenses you record in Kira (the first tab) with these categories are counted here automatically, so you do not enter them twice. A Kira category can only be counted in one flexible category.</p>
         <p class="v2-note" id="fcHint"></p>
         <p class="err" id="fcErr" role="alert"></p>
         <button class="primary" type="submit">Save category</button>
@@ -961,7 +987,7 @@ body.has-fab main { padding-bottom: 96px; }
   var ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
   var ym = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1); };
   var fmt = function (sen) { return money.format(sen / 100); };
-  var fmtChip = function (sen) { return Math.abs(sen) >= 100000 ? moneyWhole.format(sen / 100) : money.format(sen / 100); };
+  var fmtChip = function (sen) { return moneyWhole.format(Math.round(sen / 100)); };
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var uid = function () { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); };
   var now = new Date();
@@ -1030,7 +1056,7 @@ body.has-fab main { padding-bottom: 96px; }
   // ---------- state ----------
   var D = { tx: new Map(), budgets: new Map(), goals: new Map(), rec: new Map(), acct: new Map(), xfer: new Map(), coin: new Map(), paid: new Map(), flex: new Map(), fexp: new Map(), settings: {} };
   var S = D;
-  var ui = { month: thisMonth, type: 'expense', filter: 'all', q: '', armed: null, editId: null, editBudgets: false,
+  var ui = { dayOpen: {}, month: thisMonth, type: 'expense', filter: 'all', q: '', armed: null, editId: null, editBudgets: false,
              loading: true, ready: false, demo: false, cloud: false, slow: false, storageOk: true, msg: '', batch: false, booted: false,
              ringKey: '', trendKey: '' };
   var cloud = null;
@@ -1390,13 +1416,19 @@ body.has-fab main { padding-bottom: 96px; }
           '<div><span>Highest day</span><b>' + esc(fmt(topV)) + '</b></div></div>';
       }
     }
+    var cnt = {};
+    rows.forEach(function (t) { cnt[t.date] = (cnt[t.date] || 0) + 1; });
+    var todayK = ymd(new Date()), defOpen = cnt[todayK] ? todayK : rows[0].date;
     rows.forEach(function (t) {
       if (t.date !== last) {
         if (open) html += '</ul>';
         var dt = '';
         if (ui.filter !== 'income' && dayOut[t.date]) dt = '<span class="dt"><i>Spent</i> ' + esc(fmt(dayOut[t.date])) + '</span>';
         else if (dayIn[t.date]) dt = '<span class="dt"><i>Received</i> ' + esc(fmt(dayIn[t.date])) + '</span>';
-        html += '<p class="day"><span>' + esc(dayLabel(t.date)) + '</span>' + dt + '</p><ul class="list">';
+        var isOpen = !!q || (ui.dayOpen[t.date] != null ? ui.dayOpen[t.date] : t.date === defOpen);
+        if (q) html += '<p class="day"><span>' + esc(dayLabel(t.date)) + '</span>' + dt + '</p>';
+        else html += '<p class="day dayh" role="button" tabindex="0" data-day="' + t.date + '" aria-expanded="' + isOpen + '"><span><b class="car">' + (isOpen ? '▾' : '▸') + '</b> ' + esc(dayLabel(t.date)) + ' <em>' + cnt[t.date] + '</em></span>' + dt + '</p>';
+        html += '<ul class="list"' + (isOpen ? '' : ' hidden') + '>';
         open = true; last = t.date;
       }
       html += rowHtml(t);
@@ -1549,11 +1581,13 @@ body.has-fab main { padding-bottom: 96px; }
     if (ui.editId) {
       var old = D.tx.get(ui.editId);
       if (old) await put('tx', withAcct(Object.assign({}, old, { type: ui.type, cat: cat, note: note, amt: amt, date: date }), acct));
+      ui.dayOpen[date] = true;
       setEditMode(null);
       toast('Changes saved.');
     } else {
       await put('tx', withAcct({ id: uid(), type: ui.type, cat: cat, note: note, amt: amt, date: date }, acct));
       if (acct) ui.lastAcct = acct;
+      ui.dayOpen[date] = true;
       if ($('repeat').checked) {
         await put('rec', withAcct({ id: uid(), type: ui.type, cat: cat, note: note, amt: amt, day: Math.min(28, +date.slice(8, 10)), start: date.slice(0, 7), last: date.slice(0, 7) }, acct));
         toast('Added. It will repeat on the ' + ordinal(Math.min(28, +date.slice(8, 10))) + ' of each month.');
@@ -1673,7 +1707,14 @@ body.has-fab main { padding-bottom: 96px; }
   });
 
   // ledger interactions
+  function toggleDay(h) {
+    var d = h.getAttribute('data-day');
+    ui.dayOpen[d] = h.getAttribute('aria-expanded') !== 'true';
+    renderLedger();
+  }
   $('listHost').addEventListener('click', function (e) {
+    var dh = e.target.closest('[data-day]');
+    if (dh) { toggleDay(dh); return; }
     var btn = e.target.closest('[data-del]');
     if (btn) {
       e.stopPropagation();
@@ -1689,6 +1730,7 @@ body.has-fab main { padding-bottom: 96px; }
     if (li) { var t = D.tx.get(li.getAttribute('data-edit')); if (t) setEditMode(t); }
   });
   $('listHost').addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-day]')) { e.preventDefault(); toggleDay(e.target); return; }
     if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('li[data-edit]')) {
       e.preventDefault();
       var t = D.tx.get(e.target.getAttribute('data-edit'));
@@ -1778,6 +1820,43 @@ body.has-fab main { padding-bottom: 96px; }
     e.stopPropagation();
     var id = d.getAttribute('data-rdel');
     if (ui.armed === 'rec:' + id) { ui.armed = null; del('rec', id); toast('Stopped. Past entries are kept.'); } else { ui.armed = 'rec:' + id; renderRecs(); }
+  });
+
+  // ---------- full backup / restore ----------
+  $('bkBtn').onclick = async function () {
+    var o = { app: 'kira', version: 1, exported: new Date().toISOString(), settings: D.settings, data: {} }, n = 0;
+    KINDS.forEach(function (k) { o.data[k] = Array.from(D[k].values()).filter(function (x) { return !x.ex; }); n += o.data[k].length; });
+    if (!n) { toast('Nothing to back up yet.'); return; }
+    var dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) {}
+    if (!dl) { toast('Saving files is not available in this view.'); return; }
+    try {
+      await dl.save({ filename: 'kira-backup-' + ymd(new Date()) + '.json', data: JSON.stringify(o) });
+      toast('Backed up ' + n + ' items.');
+    } catch (err) { if (!err || err.code !== 'declined') toast('Could not save the backup.'); }
+  };
+  $('rsBtn').onclick = function () { $('bkFile').click(); };
+  $('bkFile').addEventListener('change', async function () {
+    var f = this.files && this.files[0]; this.value = '';
+    if (!f) return;
+    var o;
+    try { o = JSON.parse(await new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result)); }; r.onerror = rej; r.readAsText(f); })); }
+    catch (e) { toast('That is not a valid backup file.'); return; }
+    if (!o || o.app !== 'kira' || !o.data) { toast('That file is not a Kira backup.'); return; }
+    var n = 0;
+    ui.batch = true;
+    try {
+      for (var k = 0; k < KINDS.length; k++) {
+        var items = (o.data[KINDS[k]] || []).filter(function (x) { return x && typeof x.id === 'string'; });
+        for (var i = 0; i < items.length; i += 5) {
+          await Promise.all(items.slice(i, i + 5).map(function (x) { return put(KINDS[k], x); }));
+        }
+        n += items.length;
+      }
+      if (o.settings && typeof o.settings === 'object') { var st = Object.assign({}, o.settings); delete st.migrated; delete st.dismissed; await setSettings(st); }
+    } finally { ui.batch = false; }
+    renderAll();
+    toast('Restored ' + n + ' items.');
   });
 
   // ---------- CSV ----------
@@ -1919,6 +1998,7 @@ body.has-fab main { padding-bottom: 96px; }
 
   // ---------- Kira 2.0: monthly plan ----------
   function daysIn(m) { var p = m.split('-'); return new Date(+p[0], +p[1], 0).getDate(); }
+  $('v2Hero').addEventListener('toggle', function (e) { if (e.target.tagName === 'DETAILS') ui.how = e.target.open; }, true);
   function renderV2() {
     if (ui.view !== 'v2') return;
     var m = ui.month, isNow = m === thisMonth;
@@ -1975,14 +2055,32 @@ body.has-fab main { padding-bottom: 96px; }
         '<p class="balance num">' + fmt(avail) + '</p>' +
         '<p class="v2-sub">' + esc(sub1) + '</p>' +
         '<p class="v2-sub">' + esc(sub2) + '</p>' +
-        '<p class="v2-sub">' + (linked
+        '<details' + (ui.how ? ' open' : '') + '><summary>How is this worked out?</summary><p>' + (linked
           ? fmt(linked.have) + ' in Kira 3.0 now' + (daily ? ' + ' + fmt(linked.come) + ' pay still to come (' + linked.comeN + ' work days)' : '') + ' − ' + fmt(toPay) + ' fixed to pay − ' + fmt(save) + ' saving = ' + fmt(avail) + '.'
-          : fmt(inc) + ' income' + (daily ? ' (' + fmt(daily) + ' × ' + wd(m, 1) + ' work days)' : '') + ' − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(avail) + ' to spend this month.') + '</p>' +
+          : fmt(inc) + ' income' + (daily ? ' (' + fmt(daily) + ' × ' + wd(m, 1) + ' work days)' : '') + ' − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(avail) + ' to spend this month.') + '</p></details>' +
         '<div class="chips"><div class="chip"><span>Fixed to pay</span><b class="num">' + fmtChip(toPay) + '</b></div>' +
         '<div class="chip"><span>Flexible left</span><b class="num">' + fmtChip(fRemain) + '</b></div>' +
         '<div class="chip"><span>Savings</span><b class="num">' + fmtChip(save) + '</b></div></div>' +
         '<button type="button" class="hero-btn" data-act="edit">Edit plan</button>';
     }
+
+    // bill reminders: unpaid fixed expenses that are overdue or due within 3 days
+    var ba = '';
+    if (isNow && inc) {
+      var td = now.getDate(), nd2 = daysIn(m), dues = [];
+      fixed.forEach(function (r) {
+        if (paid[r.id]) return;
+        var dd = Math.min(r.day, nd2) - td;
+        if (dd <= 3) dues.push({ r: r, dd: dd });
+      });
+      dues.sort(function (a, b) { return a.dd - b.dd; });
+      dues.slice(0, 4).forEach(function (x) {
+        var nm = x.r.note || x.r.cat, when = x.dd < 0 ? 'was due ' + (-x.dd === 1 ? 'yesterday' : -x.dd + ' days ago') : x.dd === 0 ? 'is due today' : x.dd === 1 ? 'is due tomorrow' : 'is due in ' + x.dd + ' days';
+        ba += '<div class="falert' + (x.dd <= 0 ? ' r' : '') + '" role="status">' + esc(nm + ' ' + fmt(x.r.amt) + ' ' + when + '. Tick it when you pay.') + '</div>';
+      });
+      if (dues.length > 4) ba += '<div class="falert" role="status">' + (dues.length - 4) + ' more bills are due soon.</div>';
+    }
+    $('billAlerts').innerHTML = ba;
 
     // where income goes (plan)
     var al = $('v2Alloc');
@@ -2062,10 +2160,16 @@ body.has-fab main { padding-bottom: 96px; }
       .sort(function (a, b) { return (a.ord || 0) - (b.ord || 0); });
   }
   function flexLimit(c, m) { var v = 0; (c.lim || []).forEach(function (p) { if (p.m <= m) v = p.v; }); return v; }
+  function kiraLinked(src, c, m) {
+    var t = 0, lk = (c && c.link) || [];
+    if (!lk.length) return 0;
+    src.tx.forEach(function (x) { if (x.type === 'expense' && x.date.slice(0, 7) === m && lk.indexOf(x.cat) !== -1) t += x.amt; });
+    return t;
+  }
   function flexSpent(src, id, m) {
     var t = 0;
     src.fexp.forEach(function (e) { if (e.flex === id && e.date.slice(0, 7) === m) t += e.amt; });
-    return t;
+    return t + kiraLinked(src, src.flex.get(id), m);
   }
   function flexTier(sp, lim) { return !lim ? 0 : sp > lim ? 4 : sp === lim ? 3 : sp * 100 >= lim * 90 ? 2 : sp * 100 >= lim * 70 ? 1 : 0; }
   var PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>';
@@ -2084,6 +2188,10 @@ body.has-fab main { padding-bottom: 96px; }
   function feHistHTML(c, m) {
     var items = Array.from(S.fexp.values()).filter(function (e) { return e.flex === c.id && e.date.slice(0, 7) === m; })
       .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : (b.t || 0) - (a.t || 0); });
+    (c.link || []).length && S.tx.forEach(function (x) {
+      if (x.type === 'expense' && x.date.slice(0, 7) === m && c.link.indexOf(x.cat) !== -1) items.push({ id: 'k' + x.id, k: 1, note: (x.note || x.cat), date: x.date, amt: x.amt, t: 0 });
+    });
+    items.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : (b.t || 0) - (a.t || 0); });
     if (!items.length) return '<p class="foot" style="margin:12px 0 0">No expenses in ' + esc(monthLabel(m)) + ' yet.</p>';
     var tot = {}, html = '', last = '';
     items.forEach(function (e) { tot[e.date] = (tot[e.date] || 0) + e.amt; });
@@ -2094,8 +2202,8 @@ body.has-fab main { padding-bottom: 96px; }
         last = e.date;
       }
       var armed = ui.armed === 'fe:' + e.id;
-      html += '<li><div class="what"><b>' + esc(e.note || 'Expense') + '</b></div><div class="amt num">' + fmt(e.amt) + '</div>' +
-        (e.ex ? '<span></span><span></span>' :
+      html += '<li><div class="what"><b>' + esc(e.note || 'Expense') + '</b>' + (e.k ? '<span>from Kira</span>' : '') + '</div><div class="amt num">' + fmt(e.amt) + '</div>' +
+        (e.ex || e.k ? '<span></span><span></span>' :
           '<button type="button" class="del edit" data-feedit="' + esc(e.id) + '" aria-label="Edit expense">' + PEN + '</button>' +
           '<button type="button" class="del' + (armed ? ' armed' : '') + '" data-fedel="' + esc(e.id) + '" aria-label="' + (armed ? 'Confirm delete' : 'Delete expense') + '">' + (armed ? 'Delete?' : '✕') + '</button>') + '</li>';
     });
@@ -2134,11 +2242,13 @@ body.has-fab main { padding-bottom: 96px; }
       var pc = lim ? sp * 100 / lim : 0, tone = pc >= 90 ? 'r' : pc >= 70 ? 'y' : 'g';
       var open = !!ui.fhist[c.id];
       var n = 0; S.fexp.forEach(function (e) { if (e.flex === c.id && e.date.slice(0, 7) === m) n++; });
+      var kl = kiraLinked(S, c, m);
       return '<article class="panel fcard"><div class="fc-head"><b>' + esc(c.name) + '</b>' +
         (c.ex ? '' : '<button type="button" class="del edit" data-fcedit="' + esc(c.id) + '" aria-label="Edit ' + esc(c.name) + '">' + PEN + '</button>') + '</div>' +
         '<dl class="fstats"><div><dt>Monthly budget</dt><dd>' + fmt(lim) + '</dd></div><div><dt>Spent</dt><dd>' + fmt(sp) + '</dd></div>' +
         '<div><dt>Remaining</dt><dd' + (left < 0 ? ' style="color:var(--neg)"' : '') + '>' + fmt(left) + '</dd></div><div><dt>Usage</dt><dd>' + Math.round(pc) + '%</dd></div></dl>' +
         '<div class="fbar ' + tone + '" role="img" aria-label="' + Math.round(pc) + '% of budget used"><i style="width:' + Math.min(100, pc).toFixed(1) + '%"></i></div>' +
+        ((c.link && c.link.length) ? '<p class="fproj">Includes ' + esc(fmt(kl)) + ' from Kira (' + esc(c.link.join(', ')) + ').</p>' : '') +
         (left < 0 ? '<p class="fover">Over budget by ' + esc(fmt(-left)) + '</p>' : '') +
         (function () {
           var pc = flexPace(sp, lim, m);
@@ -2178,8 +2288,23 @@ body.has-fab main { padding-bottom: 96px; }
     try { $('flexForm').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (er) {}
     $('feAmt').focus();
   }
+  function drawLink() {
+    var taken = {};
+    D.flex.forEach(function (c) { if (c.id !== ui.fcEdit && (!c.end || c.end >= ui.month)) (c.link || []).forEach(function (k) { taken[k] = c.name; }); });
+    $('fcLink').innerHTML = CATS.expense.map(function (k) {
+      var on = ui.fcLink.indexOf(k) !== -1;
+      return '<button type="button" class="ghost" data-lk="' + esc(k) + '" aria-pressed="' + on + '"' + (taken[k] ? ' disabled title="Counted in ' + esc(taken[k]) + '"' : '') + '>' + esc(k) + (taken[k] ? ' · ' + esc(taken[k]) : '') + '</button>';
+    }).join('');
+  }
+  $('fcLink').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-lk]'); if (!b || b.disabled) return;
+    var k = b.getAttribute('data-lk'), i = ui.fcLink.indexOf(k);
+    if (i === -1) ui.fcLink.push(k); else ui.fcLink.splice(i, 1);
+    drawLink();
+  });
   function openCat(id, sugg) {
     var c = id ? D.flex.get(id) : null;
+    ui.fcLink = c && c.link ? c.link.slice() : []; drawLink();
     ui.fcEdit = c ? c.id : null; ui.feMonth = ui.month; ui.fcArm = false;
     $('fcTitle').textContent = c ? 'Edit ' + c.name : 'New flexible category';
     $('fcName').value = c ? c.name : (sugg || '');
@@ -2274,10 +2399,10 @@ body.has-fab main { padding-bottom: 96px; }
       var lim = (c.lim || []).filter(function (p) { return p.m !== ui.month; });
       lim.push({ m: ui.month, v: v });
       lim.sort(function (a, b) { return a.m < b.m ? -1 : 1; });
-      await put('flex', Object.assign({}, c, { name: name, lim: lim }));
+      await put('flex', Object.assign({}, c, { name: name, lim: lim, link: ui.fcLink.slice() }));
       toast('Saved.');
     } else {
-      await put('flex', { id: uid(), name: name, start: ui.month, lim: [{ m: ui.month, v: v }], ord: Date.now() });
+      await put('flex', { id: uid(), name: name, start: ui.month, lim: [{ m: ui.month, v: v }], ord: Date.now(), link: ui.fcLink.slice() });
       toast(name + ' added with a budget of ' + fmt(v) + '.');
     }
     $('flexCatForm').hidden = true;
