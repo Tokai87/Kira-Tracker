@@ -724,6 +724,7 @@ body.has-fab main { padding-bottom: 120px; }
         <h2>Flexible budget</h2>
         <div class="hb">
           <button type="button" class="ghost" id="feOpen">+ Add Expense</button>
+          <button type="button" class="ghost" id="fcSync" hidden>Sync from Kira budgets</button>
           <button type="button" class="ghost" id="fcOpen">+ Category</button>
         </div>
       </div>
@@ -2022,7 +2023,7 @@ body.has-fab main { padding-bottom: 120px; }
     var days = daysIn(m);
 
     // flexible budget numbers for this month (own expense log, never mixed with Kira entries)
-    var frows = flexCats(S, m).map(function (c) { return { c: c, lim: flexLimit(c, m), sp: flexSpent(S, c.id, m) }; });
+    var frows = flexCats(S, m).map(function (c) { return { c: c, lim: flexLimit(c, m, S), sp: flexSpent(S, c.id, m) }; });
     var fAlloc = 0, fSpent = 0;
     frows.forEach(function (r) { fAlloc += r.lim; fSpent += r.sp; });
     var fRemain = fAlloc - fSpent;
@@ -2159,7 +2160,10 @@ body.has-fab main { padding-bottom: 120px; }
     return Array.from(src.flex.values()).filter(function (c) { return c.start <= m && (!c.end || m <= c.end); })
       .sort(function (a, b) { return (a.ord || 0) - (b.ord || 0); });
   }
-  function flexLimit(c, m) { var v = 0; (c.lim || []).forEach(function (p) { if (p.m <= m) v = p.v; }); return v; }
+  function flexLimit(c, m, src) {
+    if (c.kb) { var kb = (src || D).budgets.get(c.kb); return kb && kb.limit > 0 ? kb.limit : 0; }
+    var v = 0; (c.lim || []).forEach(function (p) { if (p.m <= m) v = p.v; }); return v;
+  }
   function kiraLinked(src, c, m) {
     var t = 0, lk = (c && c.link) || [];
     if (!lk.length) return 0;
@@ -2225,6 +2229,7 @@ body.has-fab main { padding-bottom: 120px; }
       if (pc && pc.run && flexTier(r.sp, r.lim) === 0) alertsHTML += '<div class="falert" role="status">' + esc(r.c.name + ' may run out around ' + runDay(m, pc.run) + ' at this pace.') + '</div>';
     });
     $('flexAlerts').innerHTML = alertsHTML;
+    $('fcSync').hidden = !!ui.demo || !unsyncedBudgets(S, m).length;
     var tl = 0, ts = 0; rows.forEach(function (r) { tl += r.lim; ts += r.sp; });
     var tp = flexPace(ts, tl, m);
     $('flexDaily').textContent = tp && tl - ts > 0 ? 'Across your flexible budgets you can spend about ' + fmt(tp.perDay) + ' a day for the ' + tp.daysLeft + (tp.daysLeft === 1 ? ' day' : ' days') + ' left this month.' : '';
@@ -2234,7 +2239,7 @@ body.has-fab main { padding-bottom: 120px; }
       $('flexGrid').innerHTML = '<section class="panel fempty" style="grid-column:1/-1"><div class="panel-head"><h2>No flexible budgets yet</h2></div>' +
         '<p class="v2-note">Make a category for spending that changes, like food or petrol. Give it a monthly budget, then record each expense and watch the balance.</p>' +
         '<div class="chipbtns">' + ['Makan', 'Minyak', 'Barang dapur', 'Belanja harian', 'Hiburan'].map(function (n) { return '<button type="button" class="ghost" data-fcsug="' + esc(n) + '">' + esc(n) + '</button>'; }).join('') + '</div>' +
-        (hasOld ? '<button type="button" class="ghost" data-fcimport="1">Use my existing category limits</button>' : '') + '</section>';
+        (hasOld ? '<button type="button" class="ghost" data-fcimport="1">Use my Kira budgets</button>' : '') + '</section>';
       return;
     }
     $('flexGrid').innerHTML = rows.map(function (r) {
@@ -2309,7 +2314,8 @@ body.has-fab main { padding-bottom: 120px; }
     $('fcTitle').textContent = c ? 'Edit ' + c.name : 'New flexible category';
     $('fcName').value = c ? c.name : (sugg || '');
     $('fcLimit').value = c ? flexLimit(c, ui.month) / 100 : '';
-    $('fcHint').textContent = c ? 'A new budget applies from ' + monthLabel(ui.month) + ' onward. Earlier months keep their own budget.' : 'The budget starts in ' + monthLabel(ui.month) + ' and repeats every month until you change it.';
+    $('fcName').disabled = !!(c && c.kb); $('fcLimit').disabled = !!(c && c.kb); $('fcLink').hidden = !!(c && c.kb);
+    $('fcHint').textContent = c && c.kb ? 'This category follows your Kira budget for ' + c.kb + '. Change the amount with Set budgets in the Kira tab. Spending is taken from your Kira entries.' : c ? 'A new budget applies from ' + monthLabel(ui.month) + ' onward. Earlier months keep their own budget.' : 'The budget starts in ' + monthLabel(ui.month) + ' and repeats every month until you change it.';
     $('fcErr').textContent = '';
     $('fcRemove').hidden = !c; $('fcRemove').textContent = 'Remove category';
     $('flexForm').hidden = true;
@@ -2319,6 +2325,22 @@ body.has-fab main { padding-bottom: 120px; }
   }
   $('feOpen').onclick = function () { openExp(null, null); };
   $('fcOpen').onclick = function () { openCat(null); };
+  function unsyncedBudgets(src, m) {
+    var have = {};
+    flexCats(src, m).forEach(function (c) { if (c.kb) have[c.kb] = 1; (c.link || []).forEach(function (k) { have[k] = 1; }); });
+    return CATS.expense.filter(function (k) { var b = src.budgets.get(k); return b && b.limit > 0 && !have[k]; });
+  }
+  async function syncKira() {
+    var list = unsyncedBudgets(D, ui.month);
+    ui.batch = true;
+    for (var i = 0; i < list.length; i++) {
+      await put('flex', { id: uid(), name: list[i], start: ui.month, lim: [], ord: Date.now() + i, kb: list[i], link: [list[i]] });
+    }
+    ui.batch = false;
+    renderAll();
+    toast(list.length ? list.length + (list.length === 1 ? ' category' : ' categories') + ' added from your Kira budgets.' : 'Already in sync.');
+  }
+  $('fcSync').onclick = syncKira;
   $('feCancel').onclick = function () { $('flexForm').hidden = true; };
   $('fcCancel').onclick = function () { $('flexCatForm').hidden = true; };
   $('flexForm').addEventListener('submit', async function (ev) {
@@ -2388,6 +2410,7 @@ body.has-fab main { padding-bottom: 120px; }
   });
   $('flexCatForm').addEventListener('submit', async function (ev) {
     ev.preventDefault();
+    if (ui.fcEdit && D.flex.get(ui.fcEdit) && D.flex.get(ui.fcEdit).kb) { $('flexCatForm').hidden = true; return; }
     var err = $('fcErr'), name = $('fcName').value.trim().replace(/\s+/g, ' '), v = parseAmount($('fcLimit').value);
     if (!name) { err.textContent = 'Give the category a name.'; $('fcName').focus(); return; }
     if (!isFinite(v) || v <= 0) { err.textContent = 'Enter a monthly budget greater than 0.'; $('fcLimit').focus(); return; }
@@ -2434,15 +2457,7 @@ body.has-fab main { padding-bottom: 120px; }
     if ((t = ev.target.closest('[data-fcsug]'))) { ev.stopPropagation(); openCat(null, t.getAttribute('data-fcsug')); return; }
     if ((t = ev.target.closest('[data-fcimport]'))) {
       ev.stopPropagation();
-      var made = 0;
-      ui.batch = true;
-      for (var cat of CATS.expense) {
-        var b = D.budgets.get(cat);
-        if (b && b.limit > 0) { await put('flex', { id: uid(), name: cat, start: ui.month, lim: [{ m: ui.month, v: b.limit }], ord: Date.now() + made }); made++; }
-      }
-      ui.batch = false;
-      renderAll();
-      toast(made + (made === 1 ? ' category' : ' categories') + ' created from your limits.');
+      await syncKira();
     }
   });
 
