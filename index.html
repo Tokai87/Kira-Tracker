@@ -652,7 +652,14 @@ body.has-fab main { padding-bottom: 96px; }
       <div class="plan-grid">
         <div class="field"><label for="planIncome">Monthly income (RM)</label><input id="planIncome" inputmode="decimal" autocomplete="off" placeholder="4800"></div>
         <div class="field"><label for="planSave">Save each month (RM)</label><input id="planSave" inputmode="decimal" autocomplete="off" placeholder="500"></div>
+        <div class="field"><label for="planDaily">Daily pay (RM), optional</label><input id="planDaily" inputmode="decimal" autocomplete="off" placeholder="120"></div>
+        <div class="field"><label for="planOff">Day you do not work</label><select id="planOff"><option value="-1">None</option><option value="0">Sunday</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option></select></div>
       </div>
+      <div class="field" style="margin-top:10px"><label for="planLeaveDate">Other days off (leave, public holiday)</label>
+        <div style="display:flex;gap:8px"><input id="planLeaveDate" type="date" style="flex:1;min-width:0"><button type="button" class="ghost" id="planLeaveAdd" style="width:auto;padding:0 16px">Add</button></div>
+        <div id="planLeaves" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div></div>
+      <p class="v2-note" style="margin:10px 0">If you fill in daily pay, your monthly income is worked out for you: daily pay × the days you work that month. The monthly income box is then ignored.</p>
+      <label class="check"><input type="checkbox" id="planLink"> Use my Kira 3.0 balance in the available balance (this month)</label>
       <p class="err" id="planErr" role="alert"></p>
       <button class="primary" type="submit">Save plan</button>
       <button class="ghost wide" type="button" id="planCancel">Cancel</button>
@@ -1919,7 +1926,10 @@ body.has-fab main { padding-bottom: 96px; }
     // Entries added in Kira or Kira 3.0 are never taken off these numbers.
     var paid = {};
     S.paid.forEach(function (e) { if (e.m === m) paid[e.rid] = true; });
-    var inc = S.settings.income > 0 ? S.settings.income : 0;
+    var daily = S.settings.daily > 0 ? S.settings.daily : 0, offD = S.settings.off == null ? 5 : S.settings.off, lv = {};
+    (S.settings.leaves || []).forEach(function (x) { lv[x] = 1; });
+    var wd = function (m2, from) { var p = m2.split('-'), n = daysIn(m2), c = 0; for (var d = from; d <= n; d++) { var dt = new Date(+p[0], +p[1] - 1, d); if (dt.getDay() !== offD && !lv[m2 + '-' + (d < 10 ? '0' : '') + d]) c++; } return c; };
+    var inc = daily ? daily * wd(m, 1) : (S.settings.income > 0 ? S.settings.income : 0);
     var save = S.settings.save > 0 ? S.settings.save : 0;
     var fixed = Array.from(S.rec.values()).filter(function (r) { return r.type === 'expense' && (!r.start || r.start <= m); })
       .sort(function (a, b) { return a.day - b.day; });
@@ -1936,7 +1946,17 @@ body.has-fab main { padding-bottom: 96px; }
     var fAlloc = 0, fSpent = 0;
     frows.forEach(function (r) { fAlloc += r.lim; fSpent += r.sp; });
     var fRemain = fAlloc - fSpent;
-    var avail = flexible; // original: income - all fixed - saving
+    var avail = flexible; // income - all fixed - saving
+    var linked = null;
+    if (S.settings.link && isNow) {
+      var cb3 = computeBalances(S), set3 = cb3.list.filter(function (a) { return a.asOf; });
+      if (set3.length) {
+        var have = set3.reduce(function (a, x) { return a + cb3.by[x.id].bal; }, 0);
+        var comeN = daily ? wd(m, now.getDate() + 1) : 0, come = daily * comeN;
+        linked = { have: have, come: come, comeN: comeN };
+        avail = have + come - toPay - save;
+      }
+    }
     var unassigned = inc - fixedTotal - save - fAlloc;
 
     // hero
@@ -1955,7 +1975,9 @@ body.has-fab main { padding-bottom: 96px; }
         '<p class="balance num">' + fmt(avail) + '</p>' +
         '<p class="v2-sub">' + esc(sub1) + '</p>' +
         '<p class="v2-sub">' + esc(sub2) + '</p>' +
-        '<p class="v2-sub">' + fmt(inc) + ' income − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(avail) + ' to spend this month.</p>' +
+        '<p class="v2-sub">' + (linked
+          ? fmt(linked.have) + ' in Kira 3.0 now' + (daily ? ' + ' + fmt(linked.come) + ' pay still to come (' + linked.comeN + ' work days)' : '') + ' − ' + fmt(toPay) + ' fixed to pay − ' + fmt(save) + ' saving = ' + fmt(avail) + '.'
+          : fmt(inc) + ' income' + (daily ? ' (' + fmt(daily) + ' × ' + wd(m, 1) + ' work days)' : '') + ' − ' + fmt(fixedTotal) + ' fixed − ' + fmt(save) + ' saving = ' + fmt(avail) + ' to spend this month.') + '</p>' +
         '<div class="chips"><div class="chip"><span>Fixed to pay</span><b class="num">' + fmtChip(toPay) + '</b></div>' +
         '<div class="chip"><span>Flexible left</span><b class="num">' + fmtChip(fRemain) + '</b></div>' +
         '<div class="chip"><span>Savings</span><b class="num">' + fmtChip(save) + '</b></div></div>' +
@@ -2299,9 +2321,29 @@ body.has-fab main { padding-bottom: 96px; }
     }
   });
 
+  var planLeaves = [];
+  function drawLeaves() {
+    planLeaves.sort();
+    $('planLeaves').innerHTML = planLeaves.map(function (d) {
+      return '<button type="button" class="mini" data-lv="' + d + '" aria-label="Remove ' + d + '">' + esc(dayLabel(d)) + ' ✕</button>';
+    }).join('');
+  }
+  $('planLeaveAdd').onclick = function () {
+    var v = $('planLeaveDate').value;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v) && planLeaves.indexOf(v) < 0) { planLeaves.push(v); drawLeaves(); }
+    $('planLeaveDate').value = '';
+  };
+  $('planLeaves').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-lv]'); if (!b) return;
+    planLeaves = planLeaves.filter(function (x) { return x !== b.getAttribute('data-lv'); }); drawLeaves();
+  });
   function openPlan() {
     $('planIncome').value = D.settings.income > 0 ? D.settings.income / 100 : '';
     $('planSave').value = D.settings.save > 0 ? D.settings.save / 100 : '';
+    $('planDaily').value = D.settings.daily > 0 ? D.settings.daily / 100 : '';
+    $('planOff').value = String(D.settings.off == null ? 5 : D.settings.off);
+    $('planLink').checked = !!D.settings.link;
+    planLeaves = (D.settings.leaves || []).slice(); drawLeaves();
     $('planErr').textContent = '';
     $('planForm').hidden = false;
     try { $('planForm').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (e) {}
@@ -2333,9 +2375,10 @@ body.has-fab main { padding-bottom: 96px; }
     var errEl = $('planErr');
     var rawI = $('planIncome').value.trim(), rawS = $('planSave').value.trim();
     var inc = rawI === '' ? 0 : parseAmount(rawI), sv = rawS === '' ? 0 : parseAmount(rawS);
-    if (!isFinite(inc) || inc < 0 || !isFinite(sv) || sv < 0) { errEl.textContent = 'Enter income and saving as plain amounts, like 4800.'; return; }
+    var rawD = $('planDaily').value.trim(), dl = rawD === '' ? 0 : parseAmount(rawD);
+    if (!isFinite(inc) || inc < 0 || !isFinite(sv) || sv < 0 || !isFinite(dl) || dl < 0) { errEl.textContent = 'Enter income, saving and daily pay as plain amounts, like 4800.'; return; }
     errEl.textContent = '';
-    await setSettings({ income: inc, save: sv });
+    await setSettings({ income: inc, save: sv, daily: dl, off: parseInt($('planOff').value, 10), leaves: planLeaves.slice(), link: $('planLink').checked });
     $('planForm').hidden = true;
     renderAll();
     toast('Plan saved.');
