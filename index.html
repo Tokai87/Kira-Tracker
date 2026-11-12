@@ -87,8 +87,21 @@
 :root[data-bg="forest"]   { --bg: #0A1511; --surface: #10201A; --fg: #E4F0E9; --muted: #88A394; --line: #1C3328; --pos-bg: #12392B; --neg-bg: #3A2120; }
 :root[data-bg="sand"]     { --bg: #F4EEE3; --surface: #FFFBF4; --fg: #2B2218; --muted: #7B6C59; --line: #E6DCC8; --pos-bg: #E2F0DE; --neg-bg: #F8E3DA; }
 
+/* glass backgrounds: soft colour glows with frosted cards */
+:root[data-bg="aurora"] { --bg: #071126; --surface: #0F1B36; --glass: rgba(18,32,64,.55); --fg: #EAF1FF; --muted: #93A4C8; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 10% 0%, rgba(37,99,235,.55), transparent 70%), radial-gradient(55% 34% at 100% 46%, rgba(20,184,166,.32), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(99,60,200,.38), transparent 70%); }
+:root[data-bg="ocean"] { --bg: #04141F; --surface: #0B2234; --glass: rgba(10,40,62,.55); --fg: #E6F4FB; --muted: #86AEC4; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 92% 0%, rgba(6,182,212,.45), transparent 70%), radial-gradient(60% 40% at 0% 55%, rgba(37,99,235,.35), transparent 70%), radial-gradient(60% 40% at 100% 100%, rgba(20,184,166,.28), transparent 70%); }
+:root[data-bg="nebula"] { --bg: #0E0820; --surface: #1A1033; --glass: rgba(34,20,66,.55); --fg: #F1ECFF; --muted: #A99BD3; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 8% 0%, rgba(124,58,237,.55), transparent 70%), radial-gradient(55% 34% at 100% 50%, rgba(236,72,153,.30), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(59,130,246,.28), transparent 70%); }
+:root[data-bg="sunset"] { --bg: #1A0B14; --surface: #2A1420; --glass: rgba(52,24,36,.55); --fg: #FFEFE6; --muted: #CFA394; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 95% 0%, rgba(249,115,22,.42), transparent 70%), radial-gradient(55% 36% at 0% 48%, rgba(225,29,72,.34), transparent 70%), radial-gradient(65% 40% at 100% 100%, rgba(168,85,247,.28), transparent 70%); }
+:root[data-bg="emerald"] { --bg: #04150F; --surface: #0B241B; --glass: rgba(10,44,34,.55); --fg: #E4F8EF; --muted: #86B8A2; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 10% 0%, rgba(16,185,129,.42), transparent 70%), radial-gradient(55% 36% at 100% 50%, rgba(20,184,166,.30), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(132,204,22,.16), transparent 70%); }
+:root[data-bg="wine"] { --bg: #170812; --surface: #26101F; --glass: rgba(46,18,38,.55); --fg: #FFEAF2; --muted: #C99AB1; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 90% 0%, rgba(244,63,94,.40), transparent 70%), radial-gradient(55% 36% at 0% 52%, rgba(168,85,247,.30), transparent 70%), radial-gradient(65% 40% at 100% 100%, rgba(251,146,60,.18), transparent 70%); }
+:root[data-bg="gold"] { --bg: #14100A; --surface: #211A10; --glass: rgba(42,32,16,.55); --fg: #FFF5E1; --muted: #C7B28A; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 10% 0%, rgba(245,158,11,.34), transparent 70%), radial-gradient(55% 36% at 100% 50%, rgba(234,88,12,.22), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(120,80,20,.28), transparent 70%); }
+:root[data-bg="graphite"] { --bg: #0A0D12; --surface: #141A22; --glass: rgba(26,32,42,.55); --fg: #E8EDF3; --muted: #8F9BAA; --line: rgba(160,185,255,.16); --pos-bg: #0F3328; --neg-bg: #3A1F25; --bgimg: radial-gradient(60% 38% at 10% 0%, rgba(148,163,184,.20), transparent 70%), radial-gradient(55% 36% at 100% 55%, rgba(59,130,246,.16), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(100,116,139,.20), transparent 70%); }
+:root[data-bg="cloud"] { --bg: #E9EEFA; --surface: #FFFFFF; --glass: rgba(255,255,255,.66); --fg: #14202B; --muted: #5B6B7C; --line: rgba(70,90,140,.16); --pos-bg: #DDF3EA; --neg-bg: #FBE4E8; --bgimg: radial-gradient(60% 38% at 10% 0%, rgba(99,102,241,.30), transparent 70%), radial-gradient(55% 34% at 100% 46%, rgba(20,184,166,.24), transparent 70%), radial-gradient(65% 40% at 0% 100%, rgba(244,114,182,.22), transparent 70%); }
+:root[data-glass] .panel, :root[data-glass] .month-nav, :root[data-glass] .switch, :root[data-glass] .dstats div, :root[data-glass] .list, :root[data-glass] .help details, :root[data-glass] .empty, :root[data-glass] .filters button, :root[data-glass] .ledger-tools .search {
+  background: var(--glass); -webkit-backdrop-filter: blur(16px) saturate(1.25); backdrop-filter: blur(16px) saturate(1.25); }
+
 * { box-sizing: border-box; }
-body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 11%, transparent), transparent 380px); }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bgimg, linear-gradient(180deg, color-mix(in srgb, var(--accent) 11%, transparent), transparent 380px)); }
 body {
   background: var(--bg);
   color: var(--fg);
@@ -119,7 +132,7 @@ button { cursor: pointer; }
 .theme-btn { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; padding: 0; background: var(--surface); border: 1px solid var(--line); color: var(--accent); }
 .theme-btn:hover, .theme-btn[aria-expanded="true"] { background: var(--accent-bg); }
 [hidden] { display: none !important; }
-.theme-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(320px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: 0 12px 32px rgba(10, 20, 30, 0.18); display: flex; flex-direction: column; gap: 10px; }
+.theme-panel { max-height: 78vh; overflow-y: auto; position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(320px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: 0 12px 32px rgba(10, 20, 30, 0.18); display: flex; flex-direction: column; gap: 10px; }
 .theme-panel .seg { margin-bottom: 6px; grid-template-columns: repeat(3, 1fr); }
 .seg button:disabled { opacity: 0.4; cursor: default; }
 .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
@@ -519,6 +532,15 @@ body.has-fab main { padding-bottom: 120px; }
       <p class="eyebrow">Background</p>
       <div class="bgs" role="group" aria-label="Background">
         <button type="button" data-bg="default" aria-pressed="true"><i style="--c1:#F2F5F8;--c2:#0D1319"></i>Default</button>
+        <button type="button" data-bg="aurora" aria-pressed="false"><i style="--c1:#071126;--c2:#2563EB"></i>Aurora</button>
+        <button type="button" data-bg="ocean" aria-pressed="false"><i style="--c1:#04141F;--c2:#06B6D4"></i>Ocean</button>
+        <button type="button" data-bg="nebula" aria-pressed="false"><i style="--c1:#0E0820;--c2:#7C3AED"></i>Nebula</button>
+        <button type="button" data-bg="sunset" aria-pressed="false"><i style="--c1:#1A0B14;--c2:#F97316"></i>Sunset</button>
+        <button type="button" data-bg="emerald" aria-pressed="false"><i style="--c1:#04150F;--c2:#10B981"></i>Emerald</button>
+        <button type="button" data-bg="wine" aria-pressed="false"><i style="--c1:#170812;--c2:#F43F5E"></i>Wine</button>
+        <button type="button" data-bg="gold" aria-pressed="false"><i style="--c1:#14100A;--c2:#F59E0B"></i>Gold</button>
+        <button type="button" data-bg="graphite" aria-pressed="false"><i style="--c1:#0A0D12;--c2:#64748B"></i>Graphite</button>
+        <button type="button" data-bg="cloud" aria-pressed="false"><i style="--c1:#E9EEFA;--c2:#818CF8"></i>Cloud</button>
         <button type="button" data-bg="midnight" aria-pressed="false"><i style="--c1:#0A1024;--c2:#1B2A5C"></i>Midnight</button>
         <button type="button" data-bg="forest" aria-pressed="false"><i style="--c1:#0A1511;--c2:#1E4A36"></i>Forest</button>
         <button type="button" data-bg="sand" aria-pressed="false"><i style="--c1:#F4EEE3;--c2:#E2D3B8"></i>Sand</button>
@@ -1949,8 +1971,9 @@ body.has-fab main { padding-bottom: 120px; }
   // ---------- theme ----------
   var TKEY = 'kira.theme';
   var root = document.documentElement;
-  var BG_MODE = { 'default': null, midnight: 'dark', forest: 'dark', sand: 'light' };
-  var BG_NAME = { 'default': 'Default', midnight: 'Midnight', forest: 'Forest', sand: 'Sand' };
+  var BG_MODE = { 'default': null, midnight: 'dark', forest: 'dark', sand: 'light', cloud: 'light', aurora: 'dark', ocean: 'dark', nebula: 'dark', sunset: 'dark', emerald: 'dark', wine: 'dark', gold: 'dark', graphite: 'dark' };
+  var GLASS = {aurora: 1, ocean: 1, nebula: 1, sunset: 1, emerald: 1, wine: 1, gold: 1, graphite: 1, cloud: 1 };
+  var BG_NAME = { 'default': 'Default', midnight: 'Midnight', forest: 'Forest', sand: 'Sand', aurora: 'Aurora', ocean: 'Ocean', nebula: 'Nebula', sunset: 'Sunset', emerald: 'Emerald', wine: 'Wine', gold: 'Gold', graphite: 'Graphite', cloud: 'Cloud' };
   var theme = { mode: 'system', accent: 'blue', bg: 'default' };
   try {
     var ts = JSON.parse(localStorage.getItem(TKEY) || 'null');
@@ -1963,6 +1986,7 @@ body.has-fab main { padding-bottom: 120px; }
     else root.setAttribute('data-theme', theme.mode);
     root.setAttribute('data-accent', theme.accent);
     root.setAttribute('data-bg', theme.bg);
+    if (GLASS[theme.bg]) root.setAttribute('data-glass', '1'); else root.removeAttribute('data-glass');
     Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function (b) {
       b.setAttribute('aria-pressed', String(!forced && b.getAttribute('data-mode') === theme.mode));
       b.disabled = !!forced;
