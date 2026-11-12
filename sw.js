@@ -1,5 +1,5 @@
 // Offline support: app files and the libraries it loads are cached after the first visit.
-var CACHE = 'kira-app-v14';
+var CACHE = 'kira-app-v15';
 var CORE = ['./', './index.html', './shim.js', './firebase-config.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './maskable-512.png'];
 var HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'www.gstatic.com', 'cdn.jsdelivr.net', 'tessdata.projectnaptha.com'];
 
